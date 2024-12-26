@@ -1,6 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { LoginSGO } from '../views/page-login-sgo/LoginSGO';
 import { HomePrincipal } from '../views/page-home';
+import { PageModulos } from '../views/page-modulos';
+import { PageTutoriais } from '../views/page-lista-de-tutoriais';
+import { PageVideosTutoriais } from '../views/page-lista-de-videos-tutoriais';
 
 export const Rotas = () => {
   return (
@@ -10,7 +13,9 @@ export const Rotas = () => {
 
         <Route path="/login-sgo" element={<LoginSGO />} />
         <Route path="/" element={<HomePrincipal />} />
-
+        <Route path="/modulo" element={<PageModulos />} />
+        <Route path="/tutoriais" element={<PageTutoriais />} />
+        <Route path="/videostutoriais" element={<PageVideosTutoriais />} />
         {/* Rotas privadas */}
         {/* <Route
           path="/ficha"
@@ -93,7 +98,6 @@ export const Rotas = () => {
           }
         /> */}
 
-        <Route path="/login-sgo" element={<LoginSGO />} />
 
       </Routes>
     </Router>
