@@ -45,14 +45,14 @@ export const MenuLateral: React.FC = () => {
           className="gradient-border"
           align={'center'}
           justify={'center'}
-          h={'16vh'}
+          h={'12vh'}
         >
           {isOpen ? (
             <Link to={'/'}>
               <Image src={Brasao} w={'140px'} h={'10vh'} />
             </Link>
           ) : (
-            <Flex flexDirection={'column'} h={'10vh'}>
+            <Flex flexDirection={'column'} h={'5vh'}>
               <Center
                 //border={'1px solid red'}
                 //justifyItems={'center'}
@@ -76,7 +76,7 @@ export const MenuLateral: React.FC = () => {
           //mt={10}
           //m={2}
           //mb={10}
-          h={'15vh'}
+          h={'10vh'}
         >
           {' '}
           {isOpen ? (
