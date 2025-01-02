@@ -1,15 +1,37 @@
-import { Flex, Icon } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
-import { ToListVideosTutoriaisContent } from './ToListVideosTutoriaisContent';
-import { BiSolidVideoRecording } from 'react-icons/bi';
+import { FormCadastro } from './FormCadastro';
+import { FormProvider, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { cadastroSchema } from '../../types/yupCadastro/yupCadastro';
+
 
 interface IInterface {
   isOpen: boolean;
   handleToggle: () => void;
 }
-export const ToListVideosTutoriais: React.FC<IInterface> = ({
+type CadastroForm = {
+  title: string;
+    description: string;
+    reference: string;
+    system: string;
+    assunto: string;
+    descriptionAdd?: string;
+
+}
+export const Cadastro: React.FC<IInterface> = ({
   isOpen,
 }) => {
+
+const methodsInput = useForm<CadastroForm>({
+    resolver: yupResolver(cadastroSchema),
+  });
+  const { reset } = methodsInput;
+
+  const onSubmit = async (data: any) => {
+
+    reset();
+  };
   return (
     <Flex
       //h={'80vh'}
@@ -36,23 +58,21 @@ export const ToListVideosTutoriais: React.FC<IInterface> = ({
         bg={'white'}
         overflowY={'auto'}
       >
-        <Flex position="absolute" top={'32px'} ml={10} fontWeight={'700'} gap={6}>
-
-          <Flex  boxSize={'64px'} align={'center'} justify={'center'}
-              borderRadius={'12px'} bgGradient={"linear(to-r, #439DEE,  #1E78E9)"}
-              gap={6}
-              >
-              <Icon as={BiSolidVideoRecording} boxSize={7} color={'#fff'} />
-            </Flex>
-            <Flex align={'center'} justify={'center'} color={'rgba(0, 0, 0, 0.48)'}
-            fontWeight={'700'} fontSize={{
+        <Flex position="absolute" top={'32px'} ml={10} fontWeight={'700'}>
+          <Text
+            color={'rgba(0, 0, 0, 0.48)'}
+            fontWeight={'700'}
+            //fontSize={'1.2vw'}
+            fontSize={{
               base: '1.2rem',
               lg: '1.3rem',
               md: '1rem',
               sm: '1rem',
-            }}>
-              Vídeos Tutoriais
-            </Flex>
+            }}
+            //textDecoration={'underline'}
+          >
+            Cadastro
+          </Text>
         </Flex>
         <Flex
           position="absolute"
@@ -64,11 +84,16 @@ export const ToListVideosTutoriais: React.FC<IInterface> = ({
           gap={2}
           align={{ base: 'flex-start' }}
         >
+          <FormProvider {...methodsInput}>
+            <form onSubmit={methodsInput.handleSubmit(onSubmit)}>
           <Flex p={8} w={isOpen ? '86vw' : '93vw'}>
-            <ToListVideosTutoriaisContent />
+            <FormCadastro />
           </Flex>
+            </form>
+          </FormProvider>
         </Flex>
       </Flex>
     </Flex>
   );
 };
+

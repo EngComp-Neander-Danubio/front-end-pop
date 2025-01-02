@@ -1,7 +1,5 @@
 
-import { Card, CardHeader, Divider, CardBody, CardFooter, Button, Heading, Stack, Text, Image, Flex, Icon } from '@chakra-ui/react'
-import { Divide } from 'phosphor-react';
-import { FaFolderOpen } from 'react-icons/fa6';
+import { Card, CardHeader, Divider, CardBody, CardFooter, Heading, Text, Flex } from '@chakra-ui/react'
 interface ICards {
   title: string;
   body: string;

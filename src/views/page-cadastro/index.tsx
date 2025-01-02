@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { Flex, Grid, GridItem } from '@chakra-ui/react';
 import { DashHeader } from '../../components/layout/dashHeader';
 import { MenuLateral } from '../../components/layout/menulateral';
 import { useIsOpen } from '../../context/isOpenContext/useIsOpen';
-import { ToListVideosTutoriais } from '../../components/listagem-de-videos-tutoriais/ToListVideosTutoriais';
+import { Cadastro } from '../../components/cadastro/Cadastro';
 
-export const PageVideosTutoriais: React.FC = () => {
+export const PageCadastro: React.FC = () => {
   const { handleOnOpen, isOpen } = useIsOpen();
 
   return (
@@ -37,7 +38,7 @@ export const PageVideosTutoriais: React.FC = () => {
             <MenuLateral />
           </GridItem>
           <GridItem area={'main'}>
-            <ToListVideosTutoriais
+            <Cadastro
               isOpen={isOpen}
               handleToggle={handleOnOpen}
             />

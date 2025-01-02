@@ -6,14 +6,13 @@ import {
   FormControl,
 } from '@chakra-ui/react';
 import { FieldError } from 'react-hook-form';
-import { Militar } from '../../../types/typesMilitar';
 
 export type OptionType = { label: string; value: string | number }[];
 
 interface ISelect extends SelectProps {
   options:
     | OptionType
-    | Array<{ label: string; value: string; militarRank: Militar }>;
+    | Array<{ label: string; value: string; }>;
   label?: string;
   error?: FieldError | { message?: string };
   placeholderSelect?: string;
@@ -31,7 +30,7 @@ export const SelectPattern: React.FC<ISelect> = ({
       {/* {label && <FormLabel>{label}</FormLabel>} */}
       <FormControl isInvalid={!!error}>
         <Select
-          //color="#E2E8F0"
+          color="#A0AEC0"
           {...rest}
         >
           <option value="">Selecione uma opção</option>

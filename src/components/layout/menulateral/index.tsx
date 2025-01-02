@@ -123,18 +123,19 @@ export const MenuLateral: React.FC = () => {
             }
             handleClick={
               perfil.includes('cgo')
-                ? [() => navigate('/'),
-                    [() => navigate('/criar-operacao')],
+                ? [() => navigate('/modulo'),
+                    [() => navigate('/cadastro')],
                     [
-                      () => navigate('/listar-solicitacoes-postos'),
-                      () => navigate('/listar-solicitacoes-pms'),
+                      () => navigate('/cadastro'),
+                      () => navigate('/videostutoriais'),
+                      () => navigate('/tutoriais'),
                     ],
 
                   ]
                 : [
                     [
-                      () => navigate('/listar-solicitacoes-postos'),
-                      () => navigate('/listar-solicitacoes-pms'),
+                      () => navigate('/videostutoriais'),
+                      () => navigate('/tutoriais'),
                     ],
                     //() => navigate('/escalas'),
                   ]

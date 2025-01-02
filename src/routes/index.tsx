@@ -4,6 +4,7 @@ import { HomePrincipal } from '../views/page-home';
 import { PageModulos } from '../views/page-modulos';
 import { PageTutoriais } from '../views/page-lista-de-tutoriais';
 import { PageVideosTutoriais } from '../views/page-lista-de-videos-tutoriais';
+import { PageCadastro } from '../views/page-cadastro';
 
 export const Rotas = () => {
   return (
@@ -16,6 +17,7 @@ export const Rotas = () => {
         <Route path="/modulo" element={<PageModulos />} />
         <Route path="/tutoriais" element={<PageTutoriais />} />
         <Route path="/videostutoriais" element={<PageVideosTutoriais />} />
+        <Route path="/cadastro" element={<PageCadastro />} />
         {/* Rotas privadas */}
         {/* <Route
           path="/ficha"

@@ -1,7 +1,7 @@
-import { Flex, Icon, Text } from '@chakra-ui/react';
+import { Flex, Icon } from '@chakra-ui/react';
 import React from 'react';
 import { ToListTutoriaisContent } from './ToListTutoriaisContent';
-import { FaLeanpub, FaRegFolder } from 'react-icons/fa6';
+import { FaLeanpub } from 'react-icons/fa6';
 
 interface IInterface {
   isOpen: boolean;

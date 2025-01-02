@@ -1,21 +1,11 @@
-import { Flex, Icon, useDisclosure } from '@chakra-ui/react';
+import { Flex, Icon } from '@chakra-ui/react';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { CardModulo } from '../componentesModulos/CardModulo';
 import { IoDocumentTextOutline, IoPersonCircle } from 'react-icons/io5';
-import { FaLeanpub, FaRegFolder } from 'react-icons/fa6';
 import { BiSolidVideoRecording } from 'react-icons/bi';
 
 // lista as solicitacoes da OPM no que se refere ao posto de serviço
 export const ToListModulosContent: React.FC = () => {
-
-  // const navigate = useNavigate();
-
-  // const {
-  //   isOpen: isOpenFormRedSolPosto,
-  //   onOpen: onOpenFormRedSolPosto,
-  //   onClose: onCloseFormRedSolPosto,
-  // } = useDisclosure();
 
   return (
     <>
