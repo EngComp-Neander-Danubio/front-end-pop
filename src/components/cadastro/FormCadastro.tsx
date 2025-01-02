@@ -9,6 +9,8 @@ import { IoSearchSharp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import { optionsSystems } from "../../types/typesSystems";
 import { OptionType } from "../../types/typesModalidade";
+import { InputCSVpapparse } from "../componentsCadastro/inputCSVpapaparse/InputCSVpapaparse";
+import { readString } from 'react-papaparse';
 interface IFormProps extends FlexboxProps {
   widthSelect?: string;
   isLoadingRequest?: boolean;
@@ -28,9 +30,20 @@ export const FormCadastro: React.FC<IFormProps> = ({
 }) => {
   const { control, watch } = useFormContext();
   const [swicth, setSwicth] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
   const handleSwicth = (e: any) => {
     //if (!isAleatorio) trigger('antiguidade');
     setSwicth(!swicth);
+  };
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.[0]) {
+      setFile(e.target.files[0]);
+    }
+  };
+
+  const handleClick = () => {
+    document.getElementById('fileInput')?.click();
   };
   return (
     <FormControl
@@ -98,7 +111,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
               </Flex>
 
               <Flex align={'center'} justify={'center'}>
-                <Text color={'#A0AEC0'} flexWrap={'nowrap'} w={'180px'}>Tipo do Assunto</Text>
+                <Text color={'#A0AEC0'} flexWrap={'nowrap'} w={'160px'}>Palavra-Chave</Text>
                 <Controller
                   name="assunto"
                   control={control}
@@ -127,20 +140,28 @@ export const FormCadastro: React.FC<IFormProps> = ({
               >
                 <Flex flexDirection={'column'}>
                 <Text color={'#A0AEC0'} flexWrap={'nowrap'} w={'160px'}>Tipo de arquivo</Text>
-                  <Controller
-                    name="assunto"
+                <Controller
+                    name="file"
                     control={control}
                     render={({ field, fieldState: { error } }) => (
-                      <SelectPattern options={optionsFiles} w={'400px'} fontFamily={'Roboto'} />
+                      <Flex flexDirection={'row'} gap={1} align={'center'} justify={'center'}>
+                        <SelectPattern options={optionsFiles} w={'400px'} fontFamily={'Roboto'} />
+
+                        <InputCSVpapparse
+                          nameInput="fileInput"
+                          handleClick={handleClick}
+                          handleOnChange={handleOnChange}
+                          isDisabled={typeof watch('file') !== 'string'}
+                        />
+                        {/* <Icon as={MdDelete} boxSize={5} color={'#A0AEC0'} /> */}
+                      </Flex>
                     )}
-                    />
+                  />
                 </Flex>
-                    <Flex gap={2} align={'center'} justify={'center'}
-                    //border={'1px solid red'}
-                    >
-                              <Icon as={IoSearchSharp} boxSize={5} color={'#A0AEC0'}/>
-                              <Icon as={MdDelete} boxSize={5} color={'#A0AEC0'}/>
+                <Flex>
+
                 </Flex>
+
               </Flex>
           </Flex>
     </FormControl>

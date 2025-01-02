@@ -29,7 +29,8 @@ const methodsInput = useForm<CadastroForm>({
   });
   const { reset } = methodsInput;
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: CadastroForm) => {
+    console.log(data);
 
     reset();
   };
@@ -39,7 +40,7 @@ const methodsInput = useForm<CadastroForm>({
       //h={'full'}
       h={'100%'}
       flexDirection={'column'}
-      transitionDuration="1.0s"
+      //transitionDuration="1.0s"
       gap={2}
     >
 
@@ -49,8 +50,8 @@ const methodsInput = useForm<CadastroForm>({
         //border={'1px solid black'}
         borderRadius={'8px'}
         borderTopLeftRadius={0}
-        w={isOpen ? '86vw' : '94vw'}
-        transitionDuration="1.0s"
+        //w={isOpen ? '86vw' : '94vw'}
+        //transitionDuration="1.0s"
         //h={'75vh'}
         h={'100%'}
         position="relative"

@@ -14,16 +14,19 @@ export const CardTutorial: React.FC<ICards> = ({
     <Card w={'100%'}>
     <CardHeader>
       <Flex flexDirection={'row'} w={'100%'} justifyContent={'space-between'} >
-          <Heading size='md' color={"#7D7D7D"}> {title}</Heading>
+          <Heading size='md'
+          //color={"#7D7D7D"}
+          color={'#A0AEC0'}
+          > {title}</Heading>
       </Flex>
     </CardHeader>
     <CardBody>
-      <Text>{body}</Text>
+      <Text >{body}</Text>
     </CardBody>
     <Divider color={'#DCDCDC'}/>
     <CardFooter>
       <Flex flexDirection={'row'} justifyContent={'space-between'} w={'100%'}>
-        <Button >
+        <Button color={'#A0AEC0'}>
           Clique aqui
         </Button>
       </Flex>

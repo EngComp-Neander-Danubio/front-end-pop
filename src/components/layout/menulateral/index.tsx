@@ -145,7 +145,7 @@ export const MenuLateral: React.FC = () => {
                 ? [
                     ['Home'],
                     ['Cadastrar Tutorial'],
-                    ['Todos', 'Tutoriais de Vídeos', 'Tutoriais com Documentos'],
+                    ['Todos', 'Vídeos', 'Documentos'],
 
                   ]
                 : [
