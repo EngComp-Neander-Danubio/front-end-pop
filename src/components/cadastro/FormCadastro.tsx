@@ -1,14 +1,14 @@
-import { Flex, FlexboxProps, FormControl, FormLabel, Icon, Switch, Text } from "@chakra-ui/react"
+import { Flex, FlexboxProps, FormControl, Icon, Switch, Text } from "@chakra-ui/react"
 import { InputPatternController } from "../componentsCadastro/inputPatternController/InputPatternController";
 import { Controller, useFormContext } from "react-hook-form";
 import { useState } from "react";
 import { SelectPattern } from "../componentsCadastro/modal/SelectPattern";
 import { FaFolderPlus } from "react-icons/fa6";
 import { Textarea } from '@chakra-ui/react';
-import { BotaoCadastrar } from "../componentsCadastro/botaoCadastrar";
 import { IoSearchSharp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import { optionsSystems } from "../../types/typesSystems";
+import { OptionType } from "../../types/typesModalidade";
 interface IFormProps extends FlexboxProps {
   widthSelect?: string;
   isLoadingRequest?: boolean;
@@ -26,7 +26,7 @@ const optionsFiles: OptionType[] = [
 export const FormCadastro: React.FC<IFormProps> = ({
   widthSelect, ...props
 }) => {
-  const { control } = useFormContext();
+  const { control, watch } = useFormContext();
   const [swicth, setSwicth] = useState(false);
   const handleSwicth = (e: any) => {
     //if (!isAleatorio) trigger('antiguidade');
@@ -92,7 +92,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
                 name="system"
                 control={control}
                 render={({ field, fieldState: { error } }) => (
-                  <SelectPattern options={optionsSystems} w={'300px'} />
+                  <SelectPattern options={optionsSystems} w={'300px'} isDisabled={watch('reference') ? false : true} />
                 )}
                 />
               </Flex>
