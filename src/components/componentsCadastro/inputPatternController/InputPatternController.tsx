@@ -26,7 +26,7 @@ export const InputPatternController: React.FC<IInput> = ({
           {children}
         </InputLeftElement>
       )}
-        <Input type={props.type} placeholder={props.placeholder} {...props} />
+        <Input type={props.type} placeholder={props.placeholder} textFillColor={'#A0AEC0'} color={'#A0AEC0'} {...props} />
         <FormErrorMessage>{error?.message}</FormErrorMessage>
       </InputGroup>
     </FormControl>

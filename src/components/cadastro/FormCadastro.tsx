@@ -98,12 +98,19 @@ export const FormCadastro: React.FC<IFormProps> = ({
               </Flex>
 
               <Flex align={'center'} justify={'center'}>
-                <Text color={'#A0AEC0'} flexWrap={'nowrap'} w={'160px'}>Tipo do Assunto</Text>
+                <Text color={'#A0AEC0'} flexWrap={'nowrap'} w={'180px'}>Tipo do Assunto</Text>
                 <Controller
                   name="assunto"
                   control={control}
                   render={({ field, fieldState: { error } }) => (
-                    <SelectPattern options={optionsSystems} w={'400px'} />
+                    <InputPatternController
+                        type="text"
+                        w={'100%'}
+                        placeholder="Informe uma tag"
+                        color={'#A0AEC0'}
+                        {...field}
+                        error={error}
+                      />
                   )}
                   />
               </Flex>
