@@ -8,11 +8,20 @@ import { Textarea } from '@chakra-ui/react';
 import { BotaoCadastrar } from "../componentsCadastro/botaoCadastrar";
 import { IoSearchSharp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
+import { optionsSystems } from "../../types/typesSystems";
 interface IFormProps extends FlexboxProps {
   widthSelect?: string;
   isLoadingRequest?: boolean;
   isEditing?: boolean;
 }
+
+const optionsFiles: OptionType[] = [
+  { label: 'PDF', value: '1' },
+  { label: 'Docx', value: '2' },
+  { label: 'Txt', value: '3' },
+  { label: 'xls', value: '4' },
+  { label: 'pwt', value: '5' },
+];
 
 export const FormCadastro: React.FC<IFormProps> = ({
   widthSelect, ...props
@@ -83,7 +92,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
                 name="system"
                 control={control}
                 render={({ field, fieldState: { error } }) => (
-                  <SelectPattern options={[]} w={'300px'} />
+                  <SelectPattern options={optionsSystems} w={'300px'} />
                 )}
                 />
               </Flex>
@@ -94,7 +103,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
                   name="assunto"
                   control={control}
                   render={({ field, fieldState: { error } }) => (
-                    <SelectPattern options={[]} w={'400px'} />
+                    <SelectPattern options={optionsSystems} w={'400px'} />
                   )}
                   />
               </Flex>
@@ -115,7 +124,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
                     name="assunto"
                     control={control}
                     render={({ field, fieldState: { error } }) => (
-                      <SelectPattern options={[]} w={'400px'} />
+                      <SelectPattern options={optionsFiles} w={'400px'} fontFamily={'Roboto'} />
                     )}
                     />
                 </Flex>
@@ -126,7 +135,6 @@ export const FormCadastro: React.FC<IFormProps> = ({
                               <Icon as={MdDelete} boxSize={5} color={'#A0AEC0'}/>
                 </Flex>
               </Flex>
-              <BotaoCadastrar label="Cadastrar"/>
           </Flex>
     </FormControl>
   );

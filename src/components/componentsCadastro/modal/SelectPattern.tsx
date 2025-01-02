@@ -31,6 +31,7 @@ export const SelectPattern: React.FC<ISelect> = ({
       <FormControl isInvalid={!!error}>
         <Select
           color="#A0AEC0"
+          fontFamily={'Roboto'}
           {...rest}
         >
           <option value="">Selecione uma opção</option>

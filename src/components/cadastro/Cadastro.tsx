@@ -4,6 +4,7 @@ import { FormCadastro } from './FormCadastro';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { cadastroSchema } from '../../types/yupCadastro/yupCadastro';
+import { BotaoCadastrar } from '../componentsCadastro/botaoCadastrar';
 
 
 interface IInterface {
@@ -86,11 +87,12 @@ const methodsInput = useForm<CadastroForm>({
         >
           <FormProvider {...methodsInput}>
             <form onSubmit={methodsInput.handleSubmit(onSubmit)}>
-          <Flex p={8} w={isOpen ? '86vw' : '93vw'}>
-            <FormCadastro />
-          </Flex>
+              <Flex p={8} w={isOpen ? '86vw' : '93vw'}>
+                <FormCadastro />
+              </Flex>
             </form>
           </FormProvider>
+          <BotaoCadastrar label="Cadastrar"/>
         </Flex>
       </Flex>
     </Flex>
