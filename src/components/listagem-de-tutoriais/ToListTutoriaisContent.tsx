@@ -40,6 +40,7 @@ export const ToListTutoriaisContent: React.FC = () => {
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
   const [count, setCount] = useState<number>(5);
+  const [wordsKey, setWordsKey] = useState<string[]>([]);
   const array = ['BCG', 'Neo-Soldados', 'Promoção', 'Operação', 'Internet']; // Exemplo de array
   const colours = [
 'rgba(197, 48, 48, 1)',
@@ -55,8 +56,8 @@ export const ToListTutoriaisContent: React.FC = () => {
     <>
     <Flex flexDirection={'column'} w={'100%'} gap={10}
       align={'center'}
-      border="1px solid rgba(0, 0, 0, 0.2)"
-      boxShadow="0px 4px 4px -2px rgba(0, 0, 0, 0.2)"
+      //border="1px solid rgba(0, 0, 0, 0.2)"
+      //boxShadow="0px 4px 4px -2px rgba(0, 0, 0, 0.2)"
       borderRadius={'12px'}
       maxH={'80vh'}
       h={'70vh'}
@@ -126,11 +127,26 @@ export const ToListTutoriaisContent: React.FC = () => {
                                   </InputPatternController>
                                   </Flex>
                                   <Flex align={'center'} justify={'center'} gap={1}>
-                                      <InputPatternController w={'12vw'} placeholder='Digite a palavras-chave'/>
-                                      <Icon as={FaPlusCircle} boxSize={5} color={'green'} onClick={handleCount}/>
+                                    <Controller
+                                                name={'local'}
+                                                control={control}
+                                                render={({
+                                                  field: { onChange, onBlur, value, ref },
+                                                  fieldState: { error },
+                                                }) => (
+                                      <InputPatternController
+                                      fontSize={'14px'}
+                                      w={'12vw'}
+                                      placeholder='Digite a palavras-chave'
+                                      onChange={onChange}
+                                      onBlur={onBlur}
+                                      />
+                                                )}
+                                                />
+                                      <Icon as={FaPlusCircle} boxSize={5} color={'green'} onClick={handleCount} _hover={{cursor: 'pointer'}}/>
                                   </Flex>
                                   <Flex ml={'auto'} gap={2}>
-                                  <SelectPattern w={'12vw'} options={[]} />
+                                  <SelectPattern w={'12vw'} options={[]} fontSize={'14px'} />
                                     <InputPatternController fontSize={'14px'} w={'20vw'} placeholder='Buscar'>
                                         <IconeBusca color={'#A0AEC0'} />
                                   </InputPatternController>
@@ -141,6 +157,12 @@ export const ToListTutoriaisContent: React.FC = () => {
                               <ButtonTag key={index} name={`tag ${index + 1}`} text={element} color={colours[index]}/>
                                 ))}
                                </Flex>
+<Flex w={'100%'} flexDirection={'column'} w={'100%'} gap={10}
+      align={'center'}
+      border="1px solid rgba(0, 0, 0, 0.2)"
+      boxShadow="0px 4px 4px -2px rgba(0, 0, 0, 0.2)"
+      borderRadius={'12px'} maxH={'80vh'}
+      h={'60vh'}>
 <Tabs w={'100%'}>
   <TabList>
     <Tab gap={2} color={"#276749"}>
@@ -215,14 +237,16 @@ export const ToListTutoriaisContent: React.FC = () => {
     </TabPanel>
   </TabPanels>
 </Tabs>
+<Pagination pl={4} pr={4} mb={'auto'} w={'100%'} firstDataIndex={0} lastDataIndex={0} totalPages={0} dataPerPage={0} loadLess={function (): void {
+        throw new Error('Function not implemented.');
+      } } loadMore={function (): void {
+        throw new Error('Function not implemented.');
+      } } />
+  </Flex>
 
 
       </Flex>
-      <Pagination pl={4} pr={4} mb={'auto'} w={'100%'} firstDataIndex={0} lastDataIndex={0} totalPages={0} dataPerPage={0} loadLess={function (): void {
-  throw new Error('Function not implemented.');
-} } loadMore={function (): void {
-        throw new Error('Function not implemented.');
-      } } />
+
       </Flex>
     </>
   );
