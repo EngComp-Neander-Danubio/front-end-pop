@@ -90,7 +90,7 @@ export const MenuLateral: React.FC = () => {
               textAlign={'center'}
               fontWeight={500}
             >
-              POP - PMCE
+              SISPOP-PMCE
               <br />
 
             </Text>
@@ -126,15 +126,12 @@ export const MenuLateral: React.FC = () => {
                 ? [() => navigate('/modulo'),
                     [() => navigate('/cadastro')],
                     [
-                      () => navigate('/cadastro'),
-                      () => navigate('/videostutoriais'),
                       () => navigate('/tutoriais'),
                     ],
 
                   ]
                 : [
                     [
-                      () => navigate('/videostutoriais'),
                       () => navigate('/tutoriais'),
                     ],
                     //() => navigate('/escalas'),
@@ -145,7 +142,7 @@ export const MenuLateral: React.FC = () => {
                 ? [
                     ['Home'],
                     ['Cadastrar Tutorial'],
-                    ['Todos', 'Vídeos', 'Documentos'],
+                    ['Todos os treinamentos'],
 
                   ]
                 : [

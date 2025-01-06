@@ -1,16 +1,13 @@
-import { Flex, FlexboxProps, FormControl, Icon, Switch, Text } from "@chakra-ui/react"
+import { Divider, Flex, FlexboxProps, FormControl, Icon, Switch, Text } from "@chakra-ui/react"
 import { InputPatternController } from "../componentsCadastro/inputPatternController/InputPatternController";
 import { Controller, useFormContext } from "react-hook-form";
 import { useState } from "react";
 import { SelectPattern } from "../componentsCadastro/modal/SelectPattern";
-import { FaFolderPlus } from "react-icons/fa6";
 import { Textarea } from '@chakra-ui/react';
-import { IoSearchSharp } from "react-icons/io5";
-import { MdDelete } from "react-icons/md";
 import { optionsSystems } from "../../types/typesSystems";
 import { OptionType } from "../../types/typesModalidade";
 import { InputCSVpapparse } from "../componentsCadastro/inputCSVpapaparse/InputCSVpapaparse";
-import { readString } from 'react-papaparse';
+import { FaPlusCircle } from "react-icons/fa";
 interface IFormProps extends FlexboxProps {
   widthSelect?: string;
   isLoadingRequest?: boolean;
@@ -120,7 +117,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
                         type="text"
                         w={'100%'}
                         placeholder="Informe uma tag"
-                        color={'#A0AEC0'}
+
                         {...field}
                         error={error}
                       />
@@ -128,10 +125,11 @@ export const FormCadastro: React.FC<IFormProps> = ({
                   />
               </Flex>
               <Flex gap={2} align={'center'} justify={'center'}>
-               <Icon as={FaFolderPlus} boxSize={5} color={'#A0AEC0'}/>
+               <Icon as={FaPlusCircle} boxSize={5} color={'#A0AEC0'}/>
 
               </Flex>
           </Flex>
+              <Divider mt={4} />
               <Textarea textFillColor={'#A0AEC0'} placeholder='Descrição adicional (Opcional)' h={'15vh'} color={'#A0AEC0'}/>
 
               <Flex flexDirection={'row'} w={'100%'}

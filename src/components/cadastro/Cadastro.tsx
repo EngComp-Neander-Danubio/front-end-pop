@@ -36,12 +36,11 @@ const methodsInput = useForm<CadastroForm>({
   };
   return (
     <Flex
-      //h={'80vh'}
-      //h={'full'}
       h={'100%'}
+      w={'100%'}
       flexDirection={'column'}
-      //transitionDuration="1.0s"
       gap={2}
+      //border={'1px solid black'}
     >
 
       <Flex
@@ -50,9 +49,6 @@ const methodsInput = useForm<CadastroForm>({
         //border={'1px solid black'}
         borderRadius={'8px'}
         borderTopLeftRadius={0}
-        //w={isOpen ? '86vw' : '94vw'}
-        //transitionDuration="1.0s"
-        //h={'75vh'}
         h={'100%'}
         position="relative"
         borderBottom="1px solid rgba(0, 0, 0, 0.5)"
@@ -71,29 +67,28 @@ const methodsInput = useForm<CadastroForm>({
               md: '1rem',
               sm: '1rem',
             }}
-            //textDecoration={'underline'}
           >
-            Cadastro
+            Cadastro de Treinamento
           </Text>
         </Flex>
         <Flex
-          position="absolute"
           flexDirection={'column'}
           alignItems={'center'}
           justify={'center'}
-          top={'72px'}
           pt={4}
-          gap={2}
-          align={{ base: 'flex-start' }}
+          gap={20}
+          //align={{ base: 'flex-start' }}
+          //w={'100%'}
+          //border={'1px solid black'}
         >
           <FormProvider {...methodsInput}>
             <form onSubmit={methodsInput.handleSubmit(onSubmit)}>
-              <Flex p={8} w={isOpen ? '86vw' : '93vw'}>
+              <Flex p={8} w={isOpen ? '85vw' : '90vw'} transition={"1.0s"}>
                 <FormCadastro />
               </Flex>
             </form>
           </FormProvider>
-          <BotaoCadastrar label="Cadastrar"/>
+          <BotaoCadastrar label="Cadastrar" type='submit'/>
         </Flex>
       </Flex>
     </Flex>

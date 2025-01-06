@@ -6,6 +6,7 @@ import React from 'react';
 import { PopoverLogout } from '../../componentsCadastro/modal/PopoverLogout';
 import { ListDashHeader } from '../../componentesGerais/listDashHeader/ListDashHeader';
 import { useIsOpen } from '../../../context/isOpenContext/useIsOpen';
+import { InputDashHeader } from '../../componentesGerais/inputDashHeader';
 
 export const DashHeader: React.FC = () => {
   const { handleOnOpen, isOpen } = useIsOpen();
@@ -76,7 +77,7 @@ export const DashHeader: React.FC = () => {
             ml={'auto'}
             pr={2}
           >
-            {/* <InputDashHeader width={'85%'} /> */}
+            <InputDashHeader width={'85%'} />
             <Flex ml={'auto'} pr={2} gap={2}>
               <PopoverLogout />
               <IconeConfig />

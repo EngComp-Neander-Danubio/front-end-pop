@@ -14,11 +14,20 @@ export const CardModulo: React.FC<ICards> = ({
     <>
     {/* 439DEE 1E78E9 */}
             {/* F6FF4E  D8DA44*/}
-    <Card w={'30vw'}>
+    <Card w={'30vw'}
+    border="1px solid rgba(0, 0, 0, 0.2)"
+    boxShadow="4px 4px 4px -2px rgba(0, 0, 0, 0.25)">
     <CardHeader>
       <Flex flexDirection={'row'} w={'100%'} justifyContent={'space-between'} >
         <Flex  mt={-45} boxSize={'64px'} align={'center'} justify={'center'}
-        borderRadius={'12px'} bgGradient={title === 'Todos' ? "linear(to-r, #64B967, #4BA64F)" : title === 'Vídeos' ? "linear(to-r, #439DEE,  #1E78E9)" : "linear(to-r, #F6FF4E , #D8DA44)"}>
+        borderRadius={'12px'} bgGradient={
+          title === 'Todos' ?
+        "linear(to-r, #64B967, #4BA64F)" :
+        title === 'Vídeos' ?
+        "linear(to-r, #439DEE,  #1E78E9)" :
+        title === 'Documentos' ?
+        "linear(to-r, #DD6B20,  #DD6B20)" :
+        "linear(to-r, #4FD1C5 , #4FD1C5)"}>
             {icon}
         </Flex>
           <Heading size='md'> {title}</Heading>

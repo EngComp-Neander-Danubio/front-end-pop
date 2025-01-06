@@ -7,17 +7,14 @@ interface IInterface {
   isOpen: boolean;
   handleToggle: () => void;
 }
-export const ToListModulos: React.FC<IInterface> = ({
-  isOpen,
-}) => {
+export const ToListModulos: React.FC<IInterface> = () => {
   return (
     <Flex
-      //h={'80vh'}
-      //h={'full'}
       h={'100%'}
       flexDirection={'column'}
       transitionDuration="1.0s"
       gap={2}
+      bgColor={"#F5F5F5"}
     >
 
       <Flex
@@ -26,9 +23,6 @@ export const ToListModulos: React.FC<IInterface> = ({
         //border={'1px solid black'}
         borderRadius={'8px'}
         borderTopLeftRadius={0}
-        w={isOpen ? '86vw' : '94vw'}
-        transitionDuration="1.0s"
-        //h={'75vh'}
         h={'100%'}
         position="relative"
         borderBottom="1px solid rgba(0, 0, 0, 0.5)"
@@ -36,7 +30,8 @@ export const ToListModulos: React.FC<IInterface> = ({
         bg={'white'}
         overflowY={'auto'}
       >
-        <Flex position="absolute" top={'32px'} ml={10} fontWeight={'700'}>
+        <Flex position="absolute" top={'32px'} ml={10} fontWeight={'700'}
+        >
           <Text
             color={'rgba(0, 0, 0, 0.48)'}
             fontWeight={'700'}
@@ -49,7 +44,7 @@ export const ToListModulos: React.FC<IInterface> = ({
             }}
             //textDecoration={'underline'}
           >
-            Módulos
+            Home
           </Text>
         </Flex>
         <Flex
@@ -61,8 +56,9 @@ export const ToListModulos: React.FC<IInterface> = ({
           pt={4}
           gap={2}
           align={{ base: 'flex-start' }}
+          w={'100%'}
         >
-          <Flex p={8} w={isOpen ? '86vw' : '93vw'}>
+          <Flex p={8}  w={'100%'}>
             <ToListModulosContent />
           </Flex>
         </Flex>

@@ -38,12 +38,12 @@ export const ToListTutoriais: React.FC<IInterface> = ({
       >
         <Flex position="absolute" top={'32px'} ml={10} fontWeight={'700'} gap={6}>
 
-          <Flex  boxSize={'64px'} align={'center'} justify={'center'}
+          {/* <Flex  boxSize={'64px'} align={'center'} justify={'center'}
               borderRadius={'12px'} bgGradient={"linear(to-r, #64B967, #4BA64F)"}
               gap={6}
               >
               <Icon as={FaLeanpub} boxSize={7} color={'#fff'} />
-            </Flex>
+            </Flex> */}
             <Flex align={'center'} justify={'center'} color={'rgba(0, 0, 0, 0.48)'}
             fontWeight={'700'} fontSize={{
               base: '1.2rem',
@@ -51,7 +51,7 @@ export const ToListTutoriais: React.FC<IInterface> = ({
               md: '1rem',
               sm: '1rem',
             }}>
-              Tutoriais
+             Consulta de Treinamentos
             </Flex>
         </Flex>
         <Flex
@@ -63,8 +63,9 @@ export const ToListTutoriais: React.FC<IInterface> = ({
           pt={4}
           gap={2}
           align={{ base: 'flex-start' }}
+          w={'100%'}
         >
-          <Flex p={8} w={isOpen ? '86vw' : '93vw'}>
+          <Flex p={8}  w={isOpen ? '85vw' : '93vw'} transition={"1.0s"}>
             <ToListTutoriaisContent />
           </Flex>
         </Flex>

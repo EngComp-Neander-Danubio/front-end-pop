@@ -1,6 +1,6 @@
-import { Flex, Button, Text } from '@chakra-ui/react';
+import { Flex, Button, Text, FlexProps } from '@chakra-ui/react';
 
-interface IPagination {
+interface IPagination extends FlexProps{
   firstDataIndex: number;
   lastDataIndex: number;
   totalPages: number;
@@ -16,14 +16,15 @@ export const Pagination: React.FC<IPagination> = ({
   loadMore,
   firstDataIndex,
   lastDataIndex,
+  ...props
 }) => {
   return (
-    <Flex justify="space-between" mt={-9}>
-      <Text fontSize={'14px'}>
+    <Flex justify="space-between" mt={-9} {...props}>
+      <Text fontSize={'14px'} color={'#666666'} fontWeight={'medium'}>
 
-      {totalPages ? Number(firstDataIndex) + 1 : 0} a{' '}
-      {totalPages < lastDataIndex ? totalPages : lastDataIndex} - Total:{' '}
-      {totalPages} Registros
+      {totalPages ? Number(firstDataIndex) + 1 : 0} - {' '}
+      {totalPages < lastDataIndex ? totalPages : lastDataIndex} de {' '}
+      {totalPages} Itens
       </Text>
       <Flex p={0} color="rgba(52, 64, 84, 1)">
         <Button

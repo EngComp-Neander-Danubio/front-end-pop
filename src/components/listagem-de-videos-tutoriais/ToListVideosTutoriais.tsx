@@ -2,7 +2,7 @@ import { Flex, Icon } from '@chakra-ui/react';
 import React from 'react';
 import { ToListVideosTutoriaisContent } from './ToListVideosTutoriaisContent';
 import { BiSolidVideoRecording } from 'react-icons/bi';
-
+//import {video} from '../../assets/img/Group 47.svg'
 interface IInterface {
   isOpen: boolean;
   handleToggle: () => void;
@@ -16,7 +16,7 @@ export const ToListVideosTutoriais: React.FC<IInterface> = ({
       //h={'full'}
       h={'100%'}
       flexDirection={'column'}
-      transitionDuration="1.0s"
+      //transitionDuration="1.0s"
       gap={2}
     >
 
@@ -63,8 +63,9 @@ export const ToListVideosTutoriais: React.FC<IInterface> = ({
           pt={4}
           gap={2}
           align={{ base: 'flex-start' }}
+          w={'100%'}
         >
-          <Flex p={8} w={isOpen ? '86vw' : '93vw'}>
+          <Flex p={8} w={isOpen ? '85vw' : '93vw'} transition={"1.0s"}>
             <ToListVideosTutoriaisContent />
           </Flex>
         </Flex>
