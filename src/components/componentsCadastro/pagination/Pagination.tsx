@@ -1,4 +1,4 @@
-import { Flex, Button, Text, FlexProps } from '@chakra-ui/react';
+import { Flex, Button, Text, FlexProps, Select } from '@chakra-ui/react';
 
 interface IPagination extends FlexProps{
   firstDataIndex: number;
@@ -11,7 +11,6 @@ interface IPagination extends FlexProps{
 // all right, it's over here
 export const Pagination: React.FC<IPagination> = ({
   totalPages,
-  dataPerPage,
   loadLess,
   loadMore,
   firstDataIndex,
@@ -26,6 +25,18 @@ export const Pagination: React.FC<IPagination> = ({
       {totalPages < lastDataIndex ? totalPages : lastDataIndex} de {' '}
       {totalPages} Itens
       </Text>
+      <Select placeholder='' w='60px' color='#A0AEC0'>
+        <option value='option1' defaultValue='option1'>1</option>
+        <option value='option2'>2</option>
+        <option value='option3'>3</option>
+        <option value='option4'>4</option>
+        <option value='option5'>5</option>
+        <option value='option6'>6</option>
+        <option value='option7'>7</option>
+        <option value='option8'>8</option>
+        <option value='option9'>9</option>
+        <option value='option10'>10</option>
+      </Select>
       <Flex p={0} color="rgba(52, 64, 84, 1)">
         <Button
           mr={2}

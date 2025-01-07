@@ -1,5 +1,5 @@
-import { Box, Flex, Icon , Text} from '@chakra-ui/react';
-import React, { useState } from 'react';
+import { Box, Flex, Icon , Text, useToast} from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
 import { CardTutorial } from '../componentesTutorial/CardTutorial';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { FaFileAlt, FaPlusCircle } from 'react-icons/fa';
@@ -13,8 +13,18 @@ import { IconeBusca } from '../componentesGerais/iconesMenuLateral/iconeMenulate
 import { DatePickerEvent } from '../componentsCadastro/formGrandeEvento/DatePickerEvent';
 import { IconeFiltro } from '../componentesGerais/iconeDashHeader/iconeFiltro';
 import { SelectPattern } from '../componentsCadastro/modal/SelectPattern';
+import api from '../../services/api';
 
 // lista as solicitacoes da OPM no que se refere ao posto de serviço
+type CadastroForm = {
+  title: string;
+    description: string;
+    reference?: string;
+    system?: string;
+    assunto?: string;
+    descriptionAdd?: string;
+
+}
 
 const ButtonTag = (props) => {
   return (
@@ -37,10 +47,19 @@ const ButtonTag = (props) => {
 }
 export const ToListTutoriaisContent: React.FC = () => {
   const {control} = useForm();
+  const toast = useToast();
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
   const [count, setCount] = useState<number>(5);
   const [wordsKey, setWordsKey] = useState<string[]>([]);
+  const [tutorial, setTutorial] = useState<CadastroForm[]>([]);
+  const [currentDataIndex, setCurrentDataIndex] = useState(0);
+  const [dataPerPage] = useState(8);
+  const lastDataIndex = (currentDataIndex + 1) * dataPerPage;
+  const firstDataIndex = lastDataIndex - dataPerPage;
+  const totalData = tutorial.length;
+  const currentData = tutorial.slice(firstDataIndex, lastDataIndex);
+  const hasMore = lastDataIndex < tutorial.length;
   const array = ['BCG', 'Neo-Soldados', 'Promoção', 'Operação', 'Internet']; // Exemplo de array
   const colours = [
 'rgba(197, 48, 48, 1)',
@@ -52,6 +71,52 @@ export const ToListTutoriaisContent: React.FC = () => {
   const handleCount = () => {
     setCount(prev => prev + 1)
   }
+  const loadTutorialFromToBackend = async () => {
+    try {
+      const response = await api.get<CadastroForm[]>(`/listar-postos`);
+      setTutorial(response.data);
+
+      } catch (err) {
+        if (err instanceof Error) {
+          console.error(`Erro ao carregar postos: ${err.message}`);
+        } else {
+          console.error('Erro desconhecido ao carregar postos:', err);
+        }
+      }
+    };
+  useEffect(()=>{
+    loadTutorialFromToBackend()
+  },[])
+
+  const loadMore = () => {
+    if (hasMore) {
+      setCurrentDataIndex(prevIndex => prevIndex + 1);
+    } else {
+      toast({
+        title: 'Fim dos dados',
+        description: 'Não há mais Operações para carregar.',
+        status: 'info',
+        duration: 2000,
+        isClosable: true,
+        position: 'top',
+      });
+    }
+  };
+
+  const loadLess = () => {
+    if (firstDataIndex > 0) {
+      setCurrentDataIndex(prevIndex => prevIndex - 1);
+    } else {
+      toast({
+        title: 'Início dos dados',
+        description: 'Você está na primeira página.',
+        status: 'info',
+        duration: 2000,
+        isClosable: true,
+        position: 'top',
+      });
+    }
+  };
   return (
     <>
     <Flex flexDirection={'column'} w={'100%'} gap={10}
@@ -237,16 +302,9 @@ export const ToListTutoriaisContent: React.FC = () => {
     </TabPanel>
   </TabPanels>
 </Tabs>
-<Pagination pl={4} pr={4} mb={'auto'} w={'100%'} firstDataIndex={0} lastDataIndex={0} totalPages={0} dataPerPage={0} loadLess={function (): void {
-        throw new Error('Function not implemented.');
-      } } loadMore={function (): void {
-        throw new Error('Function not implemented.');
-      } } />
+  <Pagination pl={4} pr={4} mb={'auto'} w={'100%'} firstDataIndex={0} lastDataIndex={0} totalPages={0} dataPerPage={0} loadLess={loadLess} loadMore={loadMore} />
   </Flex>
-
-
       </Flex>
-
       </Flex>
     </>
   );

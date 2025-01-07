@@ -126,13 +126,12 @@ export const MenuLateral: React.FC = () => {
                 ? [() => navigate('/modulo'),
                     [() => navigate('/cadastro')],
                     [
-                      () => navigate('/tutoriais'),
+                      () => navigate('/lista-de-treinamento'),
                     ],
-
                   ]
                 : [
                     [
-                      () => navigate('/tutoriais'),
+                      () => navigate('/lista-de-treinamento'),
                     ],
                     //() => navigate('/escalas'),
                   ]

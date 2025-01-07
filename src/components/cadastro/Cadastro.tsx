@@ -1,10 +1,11 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Text, useToast } from '@chakra-ui/react';
 import React from 'react';
 import { FormCadastro } from './FormCadastro';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { cadastroSchema } from '../../types/yupCadastro/yupCadastro';
 import { BotaoCadastrar } from '../componentsCadastro/botaoCadastrar';
+import api from '../../services/api';
 
 
 interface IInterface {
@@ -14,9 +15,9 @@ interface IInterface {
 type CadastroForm = {
   title: string;
     description: string;
-    reference: string;
-    system: string;
-    assunto: string;
+    reference?: string;
+    system?: string;
+    assunto?: string;
     descriptionAdd?: string;
 
 }
@@ -27,10 +28,32 @@ export const Cadastro: React.FC<IInterface> = ({
 const methodsInput = useForm<CadastroForm>({
     resolver: yupResolver(cadastroSchema),
   });
+  const toast = useToast();
   const { reset } = methodsInput;
 
   const onSubmit = async (data: CadastroForm) => {
     console.log(data);
+    try {
+      await api.post(`/pops`, data);
+      toast({
+        title: 'Sucesso',
+        description: 'Treinamento cadastrado com sucesso',
+        status: 'success',
+        position: 'top-right',
+        duration: 2000,
+        isClosable: true,
+      });
+    } catch (error) {
+      console.error('Falha:', error);
+      toast({
+        title: 'Erro',
+        description: 'Falha ao criar Treinamento',
+        status: 'error',
+        position: 'top-right',
+        duration: 2000,
+        isClosable: true,
+      });
+    }
 
     reset();
   };
@@ -83,12 +106,12 @@ const methodsInput = useForm<CadastroForm>({
         >
           <FormProvider {...methodsInput}>
             <form onSubmit={methodsInput.handleSubmit(onSubmit)}>
-              <Flex p={8} w={isOpen ? '85vw' : '90vw'} transition={"1.0s"}>
+              <Flex p={8} w={isOpen ? '85vw' : '90vw'} transition={"1.0s"} justify={'center'} align={'center'} flexDirection={'column'} gap={4}>
                 <FormCadastro />
+                <BotaoCadastrar label="Cadastrar" type='submit' />
               </Flex>
             </form>
           </FormProvider>
-          <BotaoCadastrar label="Cadastrar" type='submit'/>
         </Flex>
       </Flex>
     </Flex>

@@ -15,8 +15,8 @@ export const Rotas = () => {
         <Route path="/login-sgo" element={<LoginSGO />} />
         <Route path="/" element={<HomePrincipal />} />
         <Route path="/modulo" element={<PageModulos />} />
-        <Route path="/tutoriais" element={<PageTutoriais />} />
-        <Route path="/videostutoriais" element={<PageVideosTutoriais />} />
+        <Route path="/lista-de-treinamento" element={<PageTutoriais />} />
+        <Route path="/treinamento" element={<PageVideosTutoriais />} />
         <Route path="/cadastro" element={<PageCadastro />} />
         {/* Rotas privadas */}
         {/* <Route

@@ -1,4 +1,4 @@
-import { Divider, Flex, FlexboxProps, FormControl, Icon, Switch, Text } from "@chakra-ui/react"
+import { Box, Divider, Flex, FlexboxProps, FormControl, Icon, Switch, Text } from "@chakra-ui/react"
 import { InputPatternController } from "../componentsCadastro/inputPatternController/InputPatternController";
 import { Controller, useFormContext } from "react-hook-form";
 import { useState } from "react";
@@ -8,6 +8,26 @@ import { optionsSystems } from "../../types/typesSystems";
 import { InputCSVpapparse } from "../componentsCadastro/inputCSVpapaparse/InputCSVpapaparse";
 import { FaPlusCircle } from "react-icons/fa";
 import { OptionType } from "../../types/typesPostos";
+
+const ButtonTag = (props) => {
+  return (
+    <Box
+            fontWeight={500}
+            borderRadius={'16px'}
+            color={'#fff'}
+            bgColor={props.color}
+            w={'200px'}
+            h={'22px'}
+            fontSize={'12px'}
+            textAlign={'center'}
+            alignContent={'center'}
+            justifyContent={'center'}
+            _hover={{ cursor: 'pointer' }}
+          >
+            {props.text}
+          </Box>
+  )
+}
 interface IFormProps extends FlexboxProps {
   widthSelect?: string;
   isLoadingRequest?: boolean;
@@ -28,6 +48,15 @@ export const FormCadastro: React.FC<IFormProps> = ({
   const { control, watch } = useFormContext();
   const [swicth, setSwicth] = useState(false);
   const [file, setFile] = useState<File | null>(null);
+  const [count, setCount] = useState<number>(5);
+  const array = ['BCG', 'Neo-Soldados', 'Promoção', 'Operação', 'Internet']; // Exemplo de array
+  const colours = [
+    '#38A169',
+        '#3182CE',
+    '#4FD1C5',
+        '#DD6B20',
+        '#A0AEC0',
+  ]
   const handleSwicth = (e: any) => {
     //if (!isAleatorio) trigger('antiguidade');
     setSwicth(!swicth);
@@ -127,9 +156,13 @@ export const FormCadastro: React.FC<IFormProps> = ({
                         error={error}
                         />
                       <Icon as={FaPlusCircle} boxSize={5} color={'green'}/>
+                      {array.slice(0, count).map((element, index) => (
+                              <ButtonTag key={index} name={`tag ${index + 1}`} text={element} color={colours[index]}/>
+                                ))}
                       </Flex>
                   )}
                   />
+
               </Flex>
 
               <Divider mt={4} />
@@ -140,14 +173,13 @@ export const FormCadastro: React.FC<IFormProps> = ({
               justifyContent={'space-between'}
               >
                 <Flex flexDirection={'column'}>
-                <Text color={'#A0AEC0'} flexWrap={'nowrap'} w={'160px'}>Tipo de arquivo</Text>
+                <Text color={'#A0AEC0'} flexWrap={'nowrap'} w={'160px'}>Upload de arquivo</Text>
                 <Controller
                     name="file"
                     control={control}
                     render={({ field, fieldState: { error } }) => (
                       <Flex flexDirection={'row'} gap={1} align={'center'} justify={'center'}>
-                        <SelectPattern options={optionsFiles} w={'400px'} fontFamily={'Roboto'} />
-
+                        <SelectPattern options={optionsFiles} w={'400px'} fontFamily={'Roboto'} placeholder="Tipo de arquivo" />
                         <InputCSVpapparse
                           nameInput="fileInput"
                           handleClick={handleClick}

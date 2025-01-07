@@ -41,6 +41,7 @@ export const ToListVideosTutoriais: React.FC<IInterface> = ({
           <Flex  boxSize={'64px'} align={'center'} justify={'center'}
               borderRadius={'12px'} bgGradient={"linear(to-r, #439DEE,  #1E78E9)"}
               gap={6}
+              boxShadow="0px 4px 4px -2px rgba(0, 0, 0, 0.5)"
               >
               <Icon as={BiSolidVideoRecording} boxSize={7} color={'#fff'} />
             </Flex>
@@ -51,7 +52,7 @@ export const ToListVideosTutoriais: React.FC<IInterface> = ({
               md: '1rem',
               sm: '1rem',
             }}>
-              Vídeos Tutoriais
+              Treinamento
             </Flex>
         </Flex>
         <Flex
