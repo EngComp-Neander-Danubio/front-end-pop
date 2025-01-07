@@ -5,19 +5,27 @@ import { PageModulos } from '../views/page-modulos';
 import { PageTutoriais } from '../views/page-lista-de-tutoriais';
 import { PageVideosTutoriais } from '../views/page-lista-de-videos-tutoriais';
 import { PageCadastro } from '../views/page-cadastro';
+import { PagePops } from '../views/page-pops';
+import { PagePopDetails } from '../views/page-pop-details';
+import { PageCreatePop } from '../views/page-create-pop';
 
 export const Rotas = () => {
   return (
     <Router>
       <Routes>
         {/* Rotas públicas */}
-
         <Route path="/login-sgo" element={<LoginSGO />} />
         <Route path="/" element={<HomePrincipal />} />
         <Route path="/modulo" element={<PageModulos />} />
         <Route path="/lista-de-treinamento" element={<PageTutoriais />} />
         <Route path="/treinamento" element={<PageVideosTutoriais />} />
         <Route path="/cadastro" element={<PageCadastro />} />
+
+        {/* Rotas para POPs */}
+        <Route path="/pops" element={<PagePops />} />
+        <Route path="/pops/:id" element={<PagePopDetails />} />
+        <Route path="/pops/create" element={<PageCreatePop />} />
+
         {/* Rotas privadas */}
         {/* <Route
           path="/ficha"
@@ -99,8 +107,6 @@ export const Rotas = () => {
             </PrivateRoute>
           }
         /> */}
-
-
       </Routes>
     </Router>
   );
