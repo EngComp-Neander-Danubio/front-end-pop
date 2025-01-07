@@ -1,4 +1,4 @@
-import { Button, ButtonProps, Text } from '@chakra-ui/react';
+import { Button, ButtonProps } from '@chakra-ui/react';
 import React from 'react';
 import { FiSave } from 'react-icons/fi';
 interface IButton extends ButtonProps {

@@ -26,8 +26,9 @@ export const InputDashHeader: React.FC<IInput> = props => {
           ml={1}
           mr={2}
           type="search"
-          //placeholder='search'
+          placeholder='Buscar'
           h="31px"
+          textFillColor={"#A0AEC0"}
           //border={'1px solid black'}
         />
         <InputRightElement pointerEvents="none" h={'31px'}>

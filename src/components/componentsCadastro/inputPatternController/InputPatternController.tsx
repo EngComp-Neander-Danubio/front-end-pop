@@ -1,15 +1,12 @@
 import {
-  Flex,
   FormControl,
   FormErrorMessage,
   Input,
   InputGroup,
   InputLeftElement,
   InputProps,
-  InputRightElement,
 } from '@chakra-ui/react';
 import { FieldError } from 'react-hook-form';
-import { BiSearch } from 'react-icons/bi';
 
 interface IInput extends InputProps {
   error?: FieldError | { message?: string };
@@ -21,7 +18,7 @@ export const InputPatternController: React.FC<IInput> = ({
   ...props
 }) => {
   return (
-    <FormControl flexDirection={'column'} isInvalid={!!error}>
+    <FormControl flexDirection={'column'} isInvalid={!!error} color={'#F5F5F5'}>
       <InputGroup>
       {children && (
         <InputLeftElement pointerEvents="none">
@@ -29,7 +26,7 @@ export const InputPatternController: React.FC<IInput> = ({
           {children}
         </InputLeftElement>
       )}
-        <Input type={props.type} placeholder={props.placeholder} {...props} />
+        <Input type={props.type} placeholder={props.placeholder} textFillColor={'#A0AEC0'} fontSize={props.fontSize}  {...props} />
         <FormErrorMessage>{error?.message}</FormErrorMessage>
       </InputGroup>
     </FormControl>

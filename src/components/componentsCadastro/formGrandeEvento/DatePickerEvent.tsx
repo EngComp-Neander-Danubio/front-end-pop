@@ -42,14 +42,14 @@ export const DatePickerEvent: React.FC<IDatePicker> = ({
         dateFormat="dd/MM/yyyy"
         customInput={
           <FormControl isInvalid={!!error}>
-            <InputGroup>
+            <InputGroup w={props.w}>
               <Input
                 value={
                   props.selected
                     ? props.selected.toLocaleDateString('pt-BR')
                     : ''
                 }
-                placeholder="Selecione data"
+                placeholder={props.placeholder}
               />
               <InputRightElement>
                 <RiCalendarLine />

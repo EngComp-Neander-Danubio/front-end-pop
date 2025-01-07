@@ -1,14 +1,20 @@
-import { Icon } from "@chakra-ui/react";
-import React from 'react';
+import { Icon, IconButtonProps } from "@chakra-ui/react";
 import { IoSearchSharp } from 'react-icons/io5';
-
-export const IconeBusca = () => {
+interface IProps extends IconButtonProps {
+  title?: string;
+}
+export const IconeBusca: React.FC<IProps> = ({
+  ...props
+}) => {
     return (
-        <Icon 
-        as={IoSearchSharp} 
-        //boxSize={"1.3vw"} 
-        boxSize={'24px'}
-        
+        <Icon
+        as={IoSearchSharp}
+        //boxSize={"1.3vw"}
+        boxSize={'20px'}
+        //color={'#A0AEC0'}
+        color={'#fff'}
+        {...props}
+
         />
     );
 }

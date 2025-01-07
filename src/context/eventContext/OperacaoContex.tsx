@@ -117,7 +117,6 @@ export const OperacaosProvider: React.FC<{ children: ReactNode }> = ({
           duration: 2000,
           isClosable: true,
         });
-      } finally {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -209,7 +208,6 @@ export const OperacaosProvider: React.FC<{ children: ReactNode }> = ({
           duration: 2000,
           isClosable: true,
         });
-      } finally {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -241,8 +239,6 @@ export const OperacaosProvider: React.FC<{ children: ReactNode }> = ({
           duration: 2000,
           isClosable: true,
         });
-      } finally {
-
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

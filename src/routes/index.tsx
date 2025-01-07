@@ -1,6 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { LoginSGO } from '../views/page-login-sgo/LoginSGO';
 import { HomePrincipal } from '../views/page-home';
+import { PageModulos } from '../views/page-modulos';
+import { PageTutoriais } from '../views/page-lista-de-tutoriais';
+import { PageVideosTutoriais } from '../views/page-lista-de-videos-tutoriais';
+import { PageCadastro } from '../views/page-cadastro';
 
 export const Rotas = () => {
   return (
@@ -10,7 +14,10 @@ export const Rotas = () => {
 
         <Route path="/login-sgo" element={<LoginSGO />} />
         <Route path="/" element={<HomePrincipal />} />
-
+        <Route path="/modulo" element={<PageModulos />} />
+        <Route path="/lista-de-treinamento" element={<PageTutoriais />} />
+        <Route path="/treinamento" element={<PageVideosTutoriais />} />
+        <Route path="/cadastro" element={<PageCadastro />} />
         {/* Rotas privadas */}
         {/* <Route
           path="/ficha"
@@ -93,7 +100,6 @@ export const Rotas = () => {
           }
         /> */}
 
-        <Route path="/login-sgo" element={<LoginSGO />} />
 
       </Routes>
     </Router>

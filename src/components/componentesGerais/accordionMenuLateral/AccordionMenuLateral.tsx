@@ -95,6 +95,7 @@ export const AccordionMenuLateral: React.FC<IAccordionMenu> = props => {
                     pt={2}
                     fontSize="0.9rem"
                     justifyContent={'center'}
+                    //alignItems={'flex-start'}
                     //fontWeight={'600'}
                   >
                     {secondaryLabel}

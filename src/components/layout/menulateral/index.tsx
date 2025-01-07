@@ -5,11 +5,10 @@ import '../../border.modules.css';
 import React from 'react';
 import { IconeBusca } from '../../componentesGerais/iconesMenuLateral/iconeMenulateralBusca';
 import { Link, useNavigate } from 'react-router-dom';
-import { IconeRelatorio } from '../../componentesGerais/iconesMenuLateral/iconeMenuLateralRelatorios';
-import { IconeSolicitacoes } from '../../componentesGerais/iconesMenuLateral/iconeMenuLateralSolicitacoes';
 import { FooterCetic } from '../../componentsCadastro/footerImgCETIC';
 import { AccordionMenuLateral } from '../../componentesGerais/accordionMenuLateral/AccordionMenuLateral';
 import { useIsOpen } from '../../../context/isOpenContext/useIsOpen';
+import { IconeHome } from '../../componentesGerais/iconesMenuLateral/iconeMenulateralHome';
 
 export const MenuLateral: React.FC = () => {
   const navigate = useNavigate();
@@ -45,14 +44,14 @@ export const MenuLateral: React.FC = () => {
           className="gradient-border"
           align={'center'}
           justify={'center'}
-          h={'16vh'}
+          h={'12vh'}
         >
           {isOpen ? (
             <Link to={'/'}>
               <Image src={Brasao} w={'140px'} h={'10vh'} />
             </Link>
           ) : (
-            <Flex flexDirection={'column'} h={'10vh'}>
+            <Flex flexDirection={'column'} h={'5vh'}>
               <Center
                 //border={'1px solid red'}
                 //justifyItems={'center'}
@@ -76,7 +75,7 @@ export const MenuLateral: React.FC = () => {
           //mt={10}
           //m={2}
           //mb={10}
-          h={'15vh'}
+          h={'6vh'}
         >
           {' '}
           {isOpen ? (
@@ -91,7 +90,7 @@ export const MenuLateral: React.FC = () => {
               textAlign={'center'}
               fontWeight={500}
             >
-              POP - PMCE
+              SISPOP-PMCE
               <br />
 
             </Text>
@@ -112,31 +111,27 @@ export const MenuLateral: React.FC = () => {
         >
           <AccordionMenuLateral
             customIcons={[
+              <Icon as={IconeHome} boxSize={5} />,
               <Icon as={IconeCadastro} boxSize={5} />,
               <Icon as={IconeBusca} boxSize={5} />,
-              <Icon as={IconeSolicitacoes} boxSize={5} />,
-              <Icon as={IconeRelatorio} boxSize={5} />,
+
             ]}
             nameLabels={
               perfil.includes('cgo')
-                ? ['Cadastro', 'Consulta', 'Solicitacões', 'Escalas']
+                ? ['Home','Cadastros', 'Consultas',]
                 : ['Solicitacões']
             }
             handleClick={
               perfil.includes('cgo')
-                ? [
-                    () => navigate('/criar-operacao'),
-                    () => navigate('/listar-operacoes'),
+                ? [() => navigate('/modulo'),
+                    [() => navigate('/cadastro')],
                     [
-                      () => navigate('/listar-solicitacoes-postos'),
-                      () => navigate('/listar-solicitacoes-pms'),
+                      () => navigate('/lista-de-treinamento'),
                     ],
-                    () => navigate('/escalas'),
                   ]
                 : [
                     [
-                      () => navigate('/listar-solicitacoes-postos'),
-                      () => navigate('/listar-solicitacoes-pms'),
+                      () => navigate('/lista-de-treinamento'),
                     ],
                     //() => navigate('/escalas'),
                   ]
@@ -144,10 +139,10 @@ export const MenuLateral: React.FC = () => {
             nameLabelSecundarys={
               perfil.includes('cgo')
                 ? [
-                    ['Cadastrar Operação'],
-                    ['Lista de Operações'],
-                    ['Postos', 'PMs'],
-                    ['Escalas'],
+                    ['Home'],
+                    ['Cadastrar Tutorial'],
+                    ['Todos os treinamentos'],
+
                   ]
                 : [
                     ['Postos', 'PMs'],

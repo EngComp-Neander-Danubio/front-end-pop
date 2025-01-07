@@ -6,7 +6,7 @@ interface IInput extends InputProps {
   nameInput: string;
   handleClick: () => void;
   handleOnChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  handleOnSubmit: (e: FormEvent) => void;
+  handleOnSubmit?: (e: FormEvent) => void;
 }
 export const InputCSVpapparse: React.FC<IInput> = ({
   //handleClick,
@@ -20,7 +20,7 @@ export const InputCSVpapparse: React.FC<IInput> = ({
     <Flex flexDirection={'row'} gap={2}>
       <input
         type="file"
-        accept=".csv"
+        accept="*/*"
         id={`${nameInput}`}
         onChange={async e => handleOnChange(e)}
         style={{ display: 'none' }}
@@ -28,38 +28,22 @@ export const InputCSVpapparse: React.FC<IInput> = ({
       />
       <Input
         as={Button}
-        rightIcon={<CiSearch size={'16px'} />}
+        rightIcon={<CiSearch size={24} />}
         placeholder={'Your file ...'}
         onClick={() => inputRef.current?.click()}
         value={inputRef.current?.value}
-        colorScheme="blue"
-        style={{ borderColor: '#2b6cb0' }}
+        //colorScheme="blue"
+        //style={{ borderColor: '#2b6cb0' }}
         variant="outline"
-        color={'#2b6cb0'}
+        //color={'#2b6cb0'}
+        color={'#A0AEC0'}
+        border={'none'}
         _hover={{ backgroundColor: '#ebf8ff' }}
-      >
-        Carregar Planilha
-      </Input>
+        fontWeight={'light'}
 
-      {/* <Button
-        rightIcon={<CiSearch size={'16px'} />}
-        colorScheme="blue"
-        variant="outline"
-        onClick={handle}
       >
-        Buscar Planilha
-      </Button> */}
-      {/*  <Button
-        type="button"
-        rightIcon={<BiUpload size={'16px'} />}
-        colorScheme="blue"
-        variant="outline"
-        onClick={async (e: FormEvent) => {
-          await handleOnSubmit(e);
-        }} // Usando onClick para submissão
-      >
-        Carregar Planilha
-      </Button> */}
+
+      </Input>
     </Flex>
   );
 };
