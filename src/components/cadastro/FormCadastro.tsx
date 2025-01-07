@@ -5,9 +5,9 @@ import { useState } from "react";
 import { SelectPattern } from "../componentsCadastro/modal/SelectPattern";
 import { Textarea } from '@chakra-ui/react';
 import { optionsSystems } from "../../types/typesSystems";
-import { OptionType } from "../../types/typesModalidade";
 import { InputCSVpapparse } from "../componentsCadastro/inputCSVpapaparse/InputCSVpapaparse";
 import { FaPlusCircle } from "react-icons/fa";
+import { OptionType } from "../../types/typesPostos";
 interface IFormProps extends FlexboxProps {
   widthSelect?: string;
   isLoadingRequest?: boolean;
@@ -160,11 +160,10 @@ export const FormCadastro: React.FC<IFormProps> = ({
                   />
                 </Flex>
                 <Flex>
-
                 </Flex>
-
               </Flex>
           </Flex>
+          <Flex className="gradient-border" w={'100%'} mt={20}/>
     </FormControl>
   );
 }
