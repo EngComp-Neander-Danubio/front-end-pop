@@ -66,7 +66,7 @@ export const ToListVideosTutoriais: React.FC<IInterface> = ({
           align={{ base: 'flex-start' }}
           w={'100%'}
         >
-          <Flex p={8} w={isOpen ? '85vw' : '93vw'} transition={"1.0s"}>
+          <Flex p={8} w={'100%'}>
             <ToListVideosTutoriaisContent />
           </Flex>
         </Flex>

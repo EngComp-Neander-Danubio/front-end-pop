@@ -77,11 +77,12 @@ const methodsInput = useForm<CadastroForm>({
         borderBottom="1px solid rgba(0, 0, 0, 0.5)"
         boxShadow="0px 4px 4px -2px rgba(0, 0, 0, 0.5)"
         bg={'white'}
+        align={'center'} justify={'center'}
         overflowY={'auto'}
       >
-        <Flex position="absolute" top={'32px'} ml={10} fontWeight={'700'}>
+        <Flex position="absolute" top={'32px'} ml={10} fontWeight={'700'}  color={'rgba(0, 0, 0, 0.48)'}>
           <Text
-            color={'rgba(0, 0, 0, 0.48)'}
+            //color={'rgba(0, 0, 0, 0.48)'}
             fontWeight={'700'}
             //fontSize={'1.2vw'}
             fontSize={{
@@ -99,10 +100,6 @@ const methodsInput = useForm<CadastroForm>({
           alignItems={'center'}
           justify={'center'}
           pt={4}
-          //gap={20}
-          //align={{ base: 'flex-start' }}
-          //w={'100%'}
-          //border={'1px solid black'}
         >
           <FormProvider {...methodsInput}>
             <form onSubmit={methodsInput.handleSubmit(onSubmit)}>

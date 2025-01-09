@@ -1,12 +1,11 @@
 
-import { Card, CardHeader, Divider, CardBody, CardFooter, Heading, Text, Flex, Button } from '@chakra-ui/react'
+import { Card, CardHeader, Divider, CardBody, CardFooter, Text, Flex, Button } from '@chakra-ui/react'
 interface ICards {
   title: string;
   body: string;
 }
 export const CardTutorial: React.FC<ICards> = ({
-  title, body
-}) => {
+  title}) => {
   return (
     <>
     {/* 439DEE 1E78E9 */}
@@ -65,7 +64,7 @@ export const CardTutorial: React.FC<ICards> = ({
         <Flex color={'#A0AEC0'}>
           Palavras-chave: Avaliação/Neo-Soldados/Estágio-operacional
         </Flex>
-        <Button color={'#fff'} ml={'auto'} backgroundColor={'green'}>
+        <Button color={'#fff'} ml={'auto'} backgroundColor={'green'} fontSize={'12px'}>
           Clique aqui
         </Button>
       </Flex>

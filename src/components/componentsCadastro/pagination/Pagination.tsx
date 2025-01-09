@@ -18,7 +18,7 @@ export const Pagination: React.FC<IPagination> = ({
   ...props
 }) => {
   return (
-    <Flex justify="space-between" mt={-9} {...props}>
+    <Flex justify="space-between" mt={-9} align={'center'} {...props}>
       <Text fontSize={'14px'} color={'#666666'} fontWeight={'medium'}>
 
       {totalPages ? Number(firstDataIndex) + 1 : 0} - {' '}
