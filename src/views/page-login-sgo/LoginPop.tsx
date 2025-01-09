@@ -1,7 +1,7 @@
 import { Login } from "../../components/login-sgo/login";
 
 
-export const LoginSGO = () => {
+export const LoginPop = () => {
   return (
     <>
       <Login />
