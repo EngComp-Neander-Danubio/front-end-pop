@@ -82,9 +82,8 @@ const methodsInput = useForm<CadastroForm>({
       >
         <Flex position="absolute" top={'32px'} ml={10} fontWeight={'700'}  color={'rgba(0, 0, 0, 0.48)'}>
           <Text
-            //color={'rgba(0, 0, 0, 0.48)'}
+            color={'rgba(0, 0, 0, 0.48)'}
             fontWeight={'700'}
-            //fontSize={'1.2vw'}
             fontSize={{
               base: '1.2rem',
               lg: '1.3rem',
