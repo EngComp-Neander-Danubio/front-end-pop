@@ -25,7 +25,7 @@ export const ToListTutoriais: React.FC<IInterface> = ({
         //border={'1px solid black'}
         borderRadius={'8px'}
         borderTopLeftRadius={0}
-        w={isOpen ? '86vw' : '94vw'}
+        //w={isOpen ? '86vw' : '94vw'}
         transitionDuration="1.0s"
         //h={'75vh'}
         h={'100%'}
@@ -33,7 +33,7 @@ export const ToListTutoriais: React.FC<IInterface> = ({
         borderBottom="1px solid rgba(0, 0, 0, 0.5)"
         boxShadow="0px 4px 4px -2px rgba(0, 0, 0, 0.5)"
         bg={'white'}
-        overflowY={'auto'}
+        //overflowY={'auto'}
       >
         <Flex position="absolute" top={'32px'} fontWeight={'700'} gap={6} align={'center'} justify={'center'} w={'100%'}>
             <Text

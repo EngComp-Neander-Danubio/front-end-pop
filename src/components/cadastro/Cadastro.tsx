@@ -78,7 +78,7 @@ const methodsInput = useForm<CadastroForm>({
         boxShadow="0px 4px 4px -2px rgba(0, 0, 0, 0.5)"
         bg={'white'}
         align={'center'} justify={'center'}
-        overflowY={'auto'}
+        //overflowY={'auto'}
       >
         <Flex position="absolute" top={'32px'} ml={10} fontWeight={'700'}  color={'rgba(0, 0, 0, 0.48)'}>
           <Text
