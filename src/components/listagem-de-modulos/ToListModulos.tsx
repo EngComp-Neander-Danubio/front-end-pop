@@ -29,6 +29,8 @@ export const ToListModulos: React.FC<IInterface> = () => {
         boxShadow="0px 4px 4px -2px rgba(0, 0, 0, 0.5)"
         bg={'white'}
         overflowY={'auto'}
+        gap={2}
+        align={'center'} justify={'center'}
       >
         <Flex position="absolute" top={'32px'} ml={10} fontWeight={'700'}
         >
@@ -42,7 +44,6 @@ export const ToListModulos: React.FC<IInterface> = () => {
               md: '1rem',
               sm: '1rem',
             }}
-            //textDecoration={'underline'}
           >
             Home
           </Text>

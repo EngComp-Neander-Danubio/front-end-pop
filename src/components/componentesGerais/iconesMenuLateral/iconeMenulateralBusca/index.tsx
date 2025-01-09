@@ -14,7 +14,6 @@ export const IconeBusca: React.FC<IProps> = ({
         //color={'#A0AEC0'}
         color={'#fff'}
         {...props}
-
         />
     );
 }

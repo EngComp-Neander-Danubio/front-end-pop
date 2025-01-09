@@ -1,4 +1,4 @@
-import { Flex, Icon } from '@chakra-ui/react';
+import { Flex, Icon, Text } from '@chakra-ui/react';
 import React from 'react';
 import { ToListVideosTutoriaisContent } from './ToListVideosTutoriaisContent';
 import { BiSolidVideoRecording } from 'react-icons/bi';
@@ -45,7 +45,7 @@ export const ToListVideosTutoriais: React.FC<IInterface> = ({
               >
               <Icon as={BiSolidVideoRecording} boxSize={7} color={'#fff'} />
             </Flex>
-            <Flex align={'center'} justify={'center'} color={'rgba(0, 0, 0, 0.48)'}
+            <Text align={'center'} color={'rgba(0, 0, 0, 0.48)'}
             fontWeight={'700'} fontSize={{
               base: '1.2rem',
               lg: '1.3rem',
@@ -53,7 +53,7 @@ export const ToListVideosTutoriais: React.FC<IInterface> = ({
               sm: '1rem',
             }}>
               Treinamento
-            </Flex>
+            </Text>
         </Flex>
         <Flex
           position="absolute"
@@ -66,7 +66,7 @@ export const ToListVideosTutoriais: React.FC<IInterface> = ({
           align={{ base: 'flex-start' }}
           w={'100%'}
         >
-          <Flex p={8} w={isOpen ? '85vw' : '93vw'} transition={"1.0s"}>
+          <Flex p={8} w={'100%'}>
             <ToListVideosTutoriaisContent />
           </Flex>
         </Flex>

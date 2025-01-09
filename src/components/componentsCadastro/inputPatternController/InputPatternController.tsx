@@ -19,7 +19,7 @@ export const InputPatternController: React.FC<IInput> = ({
 }) => {
   return (
     <FormControl flexDirection={'column'} isInvalid={!!error} color={'#F5F5F5'}>
-      <InputGroup>
+      <InputGroup flexDirection={'column'}>
       {children && (
         <InputLeftElement pointerEvents="none">
           {/* <BiSearch color="gray.300" /> */}
