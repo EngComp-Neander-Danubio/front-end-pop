@@ -23,6 +23,7 @@ const ButtonTag = (props) => {
             alignContent={'center'}
             justifyContent={'center'}
             _hover={{ cursor: 'pointer' }}
+            onClick={props.onClick}
           >
             {props.text}
           </Box>
@@ -48,8 +49,15 @@ export const FormCadastro: React.FC<IFormProps> = ({
   const { control, watch } = useFormContext();
   const [swicth, setSwicth] = useState(false);
   const [file, setFile] = useState<File | null>(null);
-  const [count, setCount] = useState<number>(5);
-  const array = ['BCG', 'Neo-Soldados', 'Promoção', 'Operação', 'Internet']; // Exemplo de array
+  const [keywords, setKeywords] = useState<string[]>([]);
+
+  // Função para adicionar uma palavra ao estado
+  const addKeyword = (keyword: string) => {
+    if (keyword.trim()) { // Verifica se o campo não está vazio
+      setKeywords((prevKeywords) => [...prevKeywords, keyword]);
+    }
+  };
+
   const colours = [
     '#38A169',
         '#3182CE',
@@ -140,30 +148,46 @@ export const FormCadastro: React.FC<IFormProps> = ({
               </Flex>
             </Flex>
 
-            <Flex
-            //border={'1px solid red'}
-             mr={'auto'}>
-                <Controller
-                  name="assunto"
-                  control={control}
-                  render={({ field, fieldState: { error } }) => (
-                    <Flex gap={2} align={'center'} justify={'center'}>
-                    <InputPatternController
-                        type="text"
-                        w={'100%'}
-                        placeholder="Adicionar palavra-Chave"
-                        {...field}
-                        error={error}
-                        />
-                      <Icon as={FaPlusCircle} boxSize={5} color={'green'}/>
-                      {array.slice(0, count).map((element, index) => (
-                              <ButtonTag key={index} name={`tag ${index + 1}`} text={element} color={colours[index]}/>
-                                ))}
-                      </Flex>
-                  )}
-                  />
+    <Flex w={'100%'}>
+      <Controller
+        name="assunto"
+        control={control}
+        render={({ field, fieldState: { error } }) => (
+          <Flex gap={2} align={'center'} justify={'center'}>
+            <InputPatternController
+              type="text"
+              w={'15vw'}
+              placeholder="Adicionar palavra-Chave"
+              {...field}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={error}
+            />
+            <Icon
+              as={FaPlusCircle}
+              boxSize={5}
+              color={'green'}
+              onClick={() => {
+                addKeyword(field.value); // Adiciona o valor do input ao estado
+                field.onChange(''); // Limpa o campo de input após adicionar a palavra
+              }}
+            />
+            <Flex ml={'auto'} gap={2}>
+            {keywords.map((element, index) => (
+              <ButtonTag
+                mr={'auto'}
+                key={index}
+                name={`tag ${index + 1}`}
+                text={element}
+                color={colours[index]}
+              />
+            ))}
+            </Flex>
+          </Flex>
+        )}
+      />
 
-              </Flex>
+    </Flex>
 
               <Divider mt={4} />
               <Textarea textFillColor={'#A0AEC0'} placeholder='Descrição adicional (Opcional)' h={'15vh'} color={'#A0AEC0'}/>
