@@ -11,7 +11,7 @@ import {
   PopoverCloseButton,
   Text,
 } from '@chakra-ui/react';
-import { SelectPattern } from './SelectPattern';
+import  SelectPattern  from './SelectPattern';
 import { IconeLogin } from '../../componentesGerais/iconeDashHeader/iconeLogin';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/AuthProvider/useAuth';

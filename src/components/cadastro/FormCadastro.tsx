@@ -1,8 +1,8 @@
-import { Box, Divider, Flex, FlexboxProps, FormControl, Icon, Switch, Text } from "@chakra-ui/react"
-import { InputPatternController } from "../componentsCadastro/inputPatternController/InputPatternController";
+import { Box, color, Divider, Flex, FlexboxProps, FormControl, Icon, Switch, Text, Tooltip } from "@chakra-ui/react"
+import  InputPatternController  from "../componentsCadastro/inputPatternController/InputPatternController";
 import { Controller, useFormContext } from "react-hook-form";
 import { useState } from "react";
-import { SelectPattern } from "../componentsCadastro/modal/SelectPattern";
+import  SelectPattern  from "../componentsCadastro/modal/SelectPattern";
 import { Textarea } from '@chakra-ui/react';
 import { optionsSystems } from "../../types/typesSystems";
 import { InputCSVpapparse } from "../componentsCadastro/inputCSVpapaparse/InputCSVpapaparse";
@@ -50,19 +50,23 @@ export const FormCadastro: React.FC<IFormProps> = ({
   const [swicth, setSwicth] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [keywords, setKeywords] = useState<string[]>([]);
-
-  // Função para adicionar uma palavra ao estado
-  const addKeyword = (keyword: string) => {
-    if (keyword.trim()) { // Verifica se o campo não está vazio
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  console.log(errorMessage)
+   // Função para adicionar uma palavra ao estado
+   const addKeyword = (keyword: string) => {
+    if (keywords.length < 5) {
       setKeywords((prevKeywords) => [...prevKeywords, keyword]);
+      setErrorMessage(null); // Limpa a mensagem de erro se a quantidade for válida
+    } else {
+      setErrorMessage('Capacidade de palavras-chave excedida. Limite é 5.');
     }
   };
-
   const removeKeyword = (index: number) => {
     const updateKeywords = keywords.filter((_,i) => i !== index )
     setKeywords(updateKeywords)
+    if(updateKeywords.length < 5)
+      setErrorMessage(null)
 }
-
   const colours = [
     '#38A169',
         '#3182CE',
@@ -71,7 +75,6 @@ export const FormCadastro: React.FC<IFormProps> = ({
         '#A0AEC0',
   ]
   const handleSwicth = (e: any) => {
-    //if (!isAleatorio) trigger('antiguidade');
     setSwicth(!swicth);
   };
 
@@ -89,7 +92,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
       //border={'1px solid green'}
       {...props}
     >
-      <Flex align="center" justify="center" gap={4} flexDirection={'column'} w={'100%'}>
+      <Flex align="center" justify="center" gap={4} flexDirection={'column'} w={'100%'} >
             <Controller
               name="title"
               control={control}
@@ -97,7 +100,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
                 <InputPatternController
                   type="text"
                   w={'100%'}
-                  placeholder="Informe o Título do Tutorial"
+                  placeholder="Informe o Título do Treinamento"
                   {...field}
                   error={error}
                 />
@@ -106,52 +109,52 @@ export const FormCadastro: React.FC<IFormProps> = ({
             <Flex flexDirection={'row'} w={'100%'} justifyContent={'space-between'}
             //border={'1px solid red'}
             >
-            <Flex w={'100%'} align={'center'} justify={'center'}>
-                <Controller
-                  name="description"
-                  control={control}
-                  render={({ field, fieldState: { error } }) => (
-                    <InputPatternController
-                    type="text"
-                    w={'45vw'}
-                    placeholder="Informe uma breve descrição"
-                    {...field}
-                    error={error}
-                    />
-                  )}
-                  />
-                  </Flex>
-                <Flex gap={2} w={'100%'} align={'center'} justify={'center'} >
-                    <Text color={'#A0AEC0'} flexWrap={'nowrap'} w={'220px'}>Possui Sistema de referência</Text>
+                  <Flex w={'100%'} align={'center'} justify={'center'}>
                     <Controller
-                      name="reference"
+                      name="description"
                       control={control}
                       render={({ field, fieldState: { error } }) => (
-                        <Switch
-                        id="reference"
-                        colorScheme={'green'}
+                        <InputPatternController
+                        type="text"
+                        color={'#000'}
+                        placeholder="Informe uma breve descrição"
                         {...field}
-                        onChange={async e => {
-                          field.onChange(e.target.checked);
-                          handleSwicth(!field.value);
-                        }}
-                        isChecked={field.value ?? false}
+                        error={error}
                         />
                       )}
                       />
-                  </Flex>
+                    </Flex>
+                    <Flex gap={2} w={'100%'} align={'center'} justify={'center'} >
+                        <Text color={'#A0AEC0'} flexWrap={'nowrap'} w={'220px'}>Possui Sistema de referência</Text>
+                        <Controller
+                          name="reference"
+                          control={control}
+                          render={({ field, fieldState: { error } }) => (
+                            <Switch
+                            id="reference"
+                            colorScheme={'green'}
+                            {...field}
+                            onChange={async e => {
+                              field.onChange(e.target.checked);
+                              handleSwicth(!field.value);
+                            }}
+                            isChecked={field.value ?? false}
+                            />
+                          )}
+                          />
+                      </Flex>
 
 
-              <Flex  gap={2} w={'100%'} align={'center'} justify={'center'} ml={'auto'}>
-                <Text color={'#A0AEC0'} flexWrap={'nowrap'} >Sistema</Text>
-                <Controller
-                  name="system"
-                  control={control}
-                  render={({ field, fieldState: { error } }) => (
-                    <SelectPattern options={optionsSystems} w={'300px'} isDisabled={watch('reference') ? false : true} {...field} />
-                  )}
-                  />
-              </Flex>
+                      <Flex  gap={2}  align={'center'} justify={'center'} ml={'auto'}>
+                        <Text color={'#A0AEC0'} flexWrap={'nowrap'} >Sistema</Text>
+                        <Controller
+                          name="system"
+                          control={control}
+                          render={({ field, fieldState: { error } }) => (
+                            <SelectPattern options={optionsSystems} w={'300px'} isDisabled={watch('reference') ? false : true} {...field} />
+                          )}
+                          />
+                      </Flex>
             </Flex>
 
     <Flex w={'100%'}>
@@ -160,6 +163,8 @@ export const FormCadastro: React.FC<IFormProps> = ({
         control={control}
         render={({ field, fieldState: { error } }) => (
           <Flex gap={2} align={'center'} justify={'center'}>
+            <Flex flexDirection={'column'}>
+
             <InputPatternController
               type="text"
               w={'15vw'}
@@ -168,7 +173,14 @@ export const FormCadastro: React.FC<IFormProps> = ({
               onChange={field.onChange}
               onBlur={field.onBlur}
               error={error}
-            />
+              />
+            {/* Exibir o Tooltip se houver erro */}
+            {errorMessage && (
+              <Tooltip label={errorMessage} aria-label="Erro de palavra-chave" >
+                <span style={{ color: 'red', fontSize: '12px' }}>{errorMessage}</span>
+              </Tooltip>
+            )}
+            </Flex>
             <Icon
               as={FaPlusCircle}
               boxSize={5}
@@ -177,6 +189,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
                 addKeyword(field.value); // Adiciona o valor do input ao estado
                 field.onChange(''); // Limpa o campo de input após adicionar a palavra
               }}
+              onBlur={field.onBlur}
             />
             <Flex ml={'auto'} gap={2}>
             {keywords.map((element, index) => (

@@ -1,4 +1,4 @@
-import { Box, Flex, Icon , TabIndicator, Text, useToast} from '@chakra-ui/react';
+import { Flex, Icon , TabIndicator, Text, useToast} from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { CardTutorial } from '../componentesTutorial/CardTutorial';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
@@ -7,12 +7,12 @@ import { HiOutlineLink } from 'react-icons/hi';
 import { FiVideo } from 'react-icons/fi';
 import { MdOutlineAutoAwesomeMotion } from 'react-icons/md';
 import { Pagination } from '../componentsCadastro/pagination/Pagination';
-import { InputPatternController } from '../componentsCadastro/inputPatternController/InputPatternController';
+import  InputPatternController  from '../componentsCadastro/inputPatternController/InputPatternController';
 import { Controller, useForm } from 'react-hook-form';
 import { IconeBusca } from '../componentesGerais/iconesMenuLateral/iconeMenulateralBusca';
 import { DatePickerEvent } from '../componentsCadastro/formGrandeEvento/DatePickerEvent';
 import { IconeFiltro } from '../componentesGerais/iconeDashHeader/iconeFiltro';
-import { SelectPattern } from '../componentsCadastro/modal/SelectPattern';
+import  SelectPattern  from '../componentsCadastro/modal/SelectPattern';
 import api from '../../services/api';
 
 // lista as solicitacoes da OPM no que se refere ao posto de serviço
@@ -168,7 +168,7 @@ export const ToListTutoriaisContent: React.FC = () => {
                                   <Flex ml={'auto'} gap={2}>
 
                                     <InputPatternController fontSize={'14px'} w={'20vw'} placeholder='Buscar'>
-                                        <IconeBusca color={'#A0AEC0'} />
+                                        <IconeBusca aria-label={''} color={'#A0AEC0'} />
                                   </InputPatternController>
                                   </Flex>
                                </Flex>
