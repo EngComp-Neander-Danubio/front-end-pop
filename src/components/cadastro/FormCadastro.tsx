@@ -58,6 +58,11 @@ export const FormCadastro: React.FC<IFormProps> = ({
     }
   };
 
+  const removeKeyword = (index: number) => {
+    const updateKeywords = keywords.filter((_,i) => i !== index )
+    setKeywords(updateKeywords)
+}
+
   const colours = [
     '#38A169',
         '#3182CE',
@@ -125,6 +130,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
                         <Switch
                         id="reference"
                         colorScheme={'green'}
+                        {...field}
                         onChange={async e => {
                           field.onChange(e.target.checked);
                           handleSwicth(!field.value);
@@ -142,7 +148,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
                   name="system"
                   control={control}
                   render={({ field, fieldState: { error } }) => (
-                    <SelectPattern options={optionsSystems} w={'300px'} isDisabled={watch('reference') ? false : true} />
+                    <SelectPattern options={optionsSystems} w={'300px'} isDisabled={watch('reference') ? false : true} {...field} />
                   )}
                   />
               </Flex>
@@ -180,6 +186,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
                 name={`tag ${index + 1}`}
                 text={element}
                 color={colours[index]}
+                onClick={() => removeKeyword(index)}
               />
             ))}
             </Flex>
