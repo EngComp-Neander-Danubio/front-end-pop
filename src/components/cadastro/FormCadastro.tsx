@@ -1,14 +1,20 @@
 import { Box, color, Divider, Flex, FlexboxProps, FormControl, Icon, Switch, Text, Tooltip } from "@chakra-ui/react"
 import  InputPatternController  from "../componentsCadastro/inputPatternController/InputPatternController";
 import { Controller, useFormContext } from "react-hook-form";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import  SelectPattern  from "../componentsCadastro/modal/SelectPattern";
 import { Textarea } from '@chakra-ui/react';
 import { optionsSystems } from "../../types/typesSystems";
 import { InputCSVpapparse } from "../componentsCadastro/inputCSVpapaparse/InputCSVpapaparse";
 import { FaPlusCircle } from "react-icons/fa";
 import { OptionType } from "../../types/typesPostos";
+import api from "../../services/api";
 
+type ISystem = {
+  sis_sigla: string;
+  sis_codigo: string;
+  sis_nome: string;
+}
 const ButtonTag = (props) => {
   return (
     <Box
@@ -51,7 +57,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
   const [file, setFile] = useState<File | null>(null);
   const [keywords, setKeywords] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
+  const [systems, setSystems] = useState<OptionType[]>([]);
    // Função para adicionar uma palavra ao estado
    const addKeyword = (keyword: string) => {
     if (keywords.length < 5) {
@@ -87,6 +93,23 @@ export const FormCadastro: React.FC<IFormProps> = ({
   const handleClick = () => {
     document.getElementById('fileInput')?.click();
   };
+
+  const loadSystemsFromBackend = useCallback(async () => {
+    try {
+      const response = await api.get<ISystem[]>('/listar-sistemas');
+      const formattedSystems = response.data.map((system: ISystem) => ({
+        label: system.sis_nome,
+        value: system.sis_codigo,
+      }));
+      setSystems(formattedSystems);
+    } catch (error) {
+      console.error('Falha ao carregar os sistemas:', error);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadSystemsFromBackend();
+  }, [loadSystemsFromBackend]);
   return (
     <FormControl
       //border={'1px solid green'}
@@ -152,7 +175,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
                           name="system"
                           control={control}
                           render={({ field, fieldState: { error } }) => (
-                            <SelectPattern options={optionsSystems} w={'300px'} isDisabled={watch('reference') ? false : true} {...field} />
+                            <SelectPattern options={systems} w={'300px'} isDisabled={watch('reference') ? false : true} {...field} />
                           )}
                           />
                       </Flex>
