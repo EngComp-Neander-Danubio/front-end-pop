@@ -98,7 +98,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
     try {
       const response = await api.get<ISystem[]>('/listar-sistemas');
       const formattedSystems = response.data.map((system: ISystem) => ({
-        label: system.sis_nome,
+        label: system.sis_sigla,
         value: system.sis_codigo,
       }));
       setSystems(formattedSystems);

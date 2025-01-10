@@ -1,19 +1,26 @@
-import { Flex, Icon , TabIndicator, Text, useToast} from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import { Flex, FocusLock, Icon , IconButton, Popover, PopoverArrow, PopoverCloseButton, PopoverContent, PopoverTrigger, TabIndicator, Text, useDisclosure, useToast} from '@chakra-ui/react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { CardTutorial } from '../componentesTutorial/CardTutorial';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { FaFileAlt } from 'react-icons/fa';
-import { HiOutlineLink } from 'react-icons/hi';
-import { FiVideo } from 'react-icons/fi';
+import { FiFilter, FiVideo } from 'react-icons/fi';
 import { MdOutlineAutoAwesomeMotion } from 'react-icons/md';
 import { Pagination } from '../componentsCadastro/pagination/Pagination';
 import  InputPatternController  from '../componentsCadastro/inputPatternController/InputPatternController';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, Form, useForm } from 'react-hook-form';
 import { IconeBusca } from '../componentesGerais/iconesMenuLateral/iconeMenulateralBusca';
 import { DatePickerEvent } from '../componentsCadastro/formGrandeEvento/DatePickerEvent';
-import { IconeFiltro } from '../componentesGerais/iconeDashHeader/iconeFiltro';
-import  SelectPattern  from '../componentsCadastro/modal/SelectPattern';
+import  SelectPattern from '../componentsCadastro/modal/SelectPattern';
+import { Checkbox, CheckboxGroup } from '@chakra-ui/react'
 import api from '../../services/api';
+import { RxText } from 'react-icons/rx';
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+} from '@chakra-ui/react'
+import { AddIcon, ExternalLinkIcon, RepeatIcon, EditIcon } from '@chakra-ui/icons';
 
 // lista as solicitacoes da OPM no que se refere ao posto de serviço
 type CadastroForm = {
@@ -25,10 +32,18 @@ type CadastroForm = {
     descriptionAdd?: string;
 
 }
+type OptionType = { label: string; value: string  }[];
+
+type ISystem = {
+  sis_sigla: string;
+  sis_codigo: string;
+  sis_nome: string;
+}
 
 export const ToListTutoriaisContent: React.FC = () => {
   const {control} = useForm();
   const toast = useToast();
+  const { onOpen, onClose, isOpen } = useDisclosure()
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
 
@@ -40,7 +55,33 @@ export const ToListTutoriaisContent: React.FC = () => {
   const totalData = tutorial.length;
   const currentData = tutorial.slice(firstDataIndex, lastDataIndex);
   const hasMore = lastDataIndex < tutorial.length;
+  const [systems, setSystems] = useState<OptionType[]>([]);
+  const [checkboxData, setCheckboxData] = useState<string[]>([]); // Estado para armazenar os dados dos checkboxes
 
+  // Função para alterar o estado dos checkboxes
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>, label: string) => {
+    if (e.target.checked) {
+      setCheckboxData((prev) => [...prev, label]); // Adiciona ao array se marcado
+    } else {
+      setCheckboxData((prev) => prev.filter(item => item !== label)); // Remove do array se desmarcado
+    }
+  };
+  const loadSystemsFromBackend = useCallback(async () => {
+    try {
+      const response = await api.get<ISystem[]>('/listar-sistemas');
+      const formattedSystems = response.data.map((system: ISystem) => ({
+        label: system.sis_sigla,
+        value: system.sis_codigo,
+      }));
+      setSystems(formattedSystems);
+    } catch (error) {
+      console.error('Falha ao carregar os sistemas:', error);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadSystemsFromBackend();
+  }, []);
   const loadTutorialFromToBackend = async () => {
     try {
       const response = await api.get<CadastroForm[]>(`/listar-postos`);
@@ -158,12 +199,57 @@ export const ToListTutoriaisContent: React.FC = () => {
                                   )}
                                   />
                                   <Flex>
-                                  <InputPatternController fontSize={'14px'} w={'5vw'} placeholder='Filtros'>
-                                  <IconeFiltro />
-                                  </InputPatternController>
+
+                                    <Menu closeOnBlur={true} closeOnSelect={false}> {/* Menu não fecha ao selecionar, apenas ao clicar fora */}
+                                      <MenuButton
+                                        as={IconButton}
+                                        aria-label="Options"
+                                        icon={<FiFilter />}
+                                        variant="outline"
+                                        color="#A0AEC0"
+                                      />
+                                      <MenuList>
+                                        <MenuItem>
+                                          <Checkbox
+                                            colorScheme="green"
+                                            isChecked={checkboxData.includes('Sistemas')}
+                                            onChange={(e) => handleCheckboxChange(e, 'Sistemas')}
+                                          >
+                                            Sistemas
+                                          </Checkbox>
+                                        </MenuItem>
+                                        <MenuItem>
+                                          <Checkbox
+                                            colorScheme="green"
+                                            isChecked={checkboxData.includes('OPM')}
+                                            onChange={(e) => handleCheckboxChange(e, 'OPM')}
+                                          >
+                                            OPM
+                                          </Checkbox>
+                                        </MenuItem>
+                                        <MenuItem>
+                                          <Checkbox
+                                            colorScheme="green"
+                                            isChecked={checkboxData.includes('Tipo')}
+                                            onChange={(e) => handleCheckboxChange(e, 'Tipo')}
+                                          >
+                                            Tipo
+                                          </Checkbox>
+                                        </MenuItem>
+                                        <MenuItem>
+                                          <Checkbox
+                                            colorScheme="green"
+                                            isChecked={checkboxData.includes('Arquivo')}
+                                            onChange={(e) => handleCheckboxChange(e, 'Arquivo')}
+                                          >
+                                            Arquivo
+                                          </Checkbox>
+                                        </MenuItem>
+                                      </MenuList>
+                                    </Menu>
                                   </Flex>
                                   <Flex align={'center'} justify={'center'} gap={1}>
-                                  <SelectPattern w={'12vw'} options={[]} fontSize={'14px'} placeholder='Selecione' />
+                                  <SelectPattern options={systems} w={'300px'} isDisabled={!checkboxData.includes('Sistemas')} />
                                   </Flex>
                                   <Flex ml={'auto'} gap={2}>
 
@@ -231,13 +317,13 @@ export const ToListTutoriaisContent: React.FC = () => {
         <Flex boxSize={'39px'} align={'center'} justify={'center'}
         borderRadius={'12px'} bgGradient={
           "linear(to-r, #4FD1C5, #4FD1C5)" }>
-          <Icon as={HiOutlineLink} boxSize={4} color={'#fff'} />
+          <Icon as={RxText} boxSize={4} color={'#fff'} />
         </Flex>
         <Text
         //color={"#276749"}
         fontWeight={'medium'}>
 
-        Links (01)
+        Textos (01)
         </Text>
       </Tab>
         </TabList>
