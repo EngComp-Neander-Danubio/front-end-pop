@@ -1,5 +1,6 @@
 
 import { Card, CardHeader, Divider, CardBody, CardFooter, Heading, Text, Flex } from '@chakra-ui/react'
+import { Navigate, useNavigate } from 'react-router-dom';
 interface ICards {
   title: string;
   body: string;
@@ -10,6 +11,7 @@ interface ICards {
 export const CardModulo: React.FC<ICards> = ({
   title, body,textsFooter, icon,numberTutorial
 }) => {
+  const navigate = useNavigate();
   return (
     <>
     {/* 439DEE 1E78E9 */}
@@ -29,7 +31,7 @@ export const CardModulo: React.FC<ICards> = ({
         "linear(to-r, #439DEE,  #1E78E9)" :
         title === 'Documentos' ?
         "linear(to-r, #DD6B20,  #DD6B20)" :
-        "linear(to-r, #4FD1C5 , #4FD1C5)"}  _hover={{cursor: 'pointer'}}>
+        "linear(to-r, #4FD1C5 , #4FD1C5)"}  _hover={{cursor: 'pointer'}} onClick={() => navigate('/treinamento')}>
             {icon}
         </Flex>
           <Heading size='md'> {title}</Heading>

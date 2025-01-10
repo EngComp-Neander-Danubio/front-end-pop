@@ -51,7 +51,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
   const [file, setFile] = useState<File | null>(null);
   const [keywords, setKeywords] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  console.log(errorMessage)
+
    // Função para adicionar uma palavra ao estado
    const addKeyword = (keyword: string) => {
     if (keywords.length < 5) {
@@ -139,6 +139,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
                               handleSwicth(!field.value);
                             }}
                             isChecked={field.value ?? false}
+
                             />
                           )}
                           />
@@ -223,7 +224,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
                     control={control}
                     render={({ field, fieldState: { error } }) => (
                       <Flex flexDirection={'row'} gap={1} align={'center'} justify={'center'}>
-                        <SelectPattern options={optionsFiles} w={'400px'} fontFamily={'Roboto'} placeholder="Tipo de arquivo" />
+                        <SelectPattern options={optionsFiles} w={'400px'} fontFamily={'Roboto'} placeholder="Tipo de arquivo" {...field} />
                         <InputCSVpapparse
                           nameInput="fileInput"
                           handleClick={handleClick}
