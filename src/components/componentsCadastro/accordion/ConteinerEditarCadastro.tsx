@@ -3,7 +3,7 @@ import React from 'react';
 import { TitleCadastro } from '../tilteCadastro';
 
 import { AccordinEditarCadastro } from './AccordionEditarCadastro';
-import { BreadCrumb } from '../flexMenor/BreadCrumb';
+import { BreadCrumb } from '../../BreadCrumb';
 
 interface IFlexCadastrar {
   isOpen: boolean;

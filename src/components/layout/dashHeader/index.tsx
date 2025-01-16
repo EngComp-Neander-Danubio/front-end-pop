@@ -77,11 +77,11 @@ export const DashHeader: React.FC = () => {
             ml={'auto'}
             pr={2}
           >
-            <InputDashHeader width={'85%'} />
+            {/* <InputDashHeader width={'85%'} /> */}
             <Flex ml={'auto'} pr={2} gap={2}>
               <PopoverLogout />
-              <IconeConfig />
-              <IconeSino />
+              {/* <IconeConfig />
+              <IconeSino /> */}
             </Flex>
           </HStack>
         </HStack>

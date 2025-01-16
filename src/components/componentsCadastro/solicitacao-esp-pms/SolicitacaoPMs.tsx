@@ -2,7 +2,7 @@ import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import { SolicitacaoPMsContent } from './SolicitacaoPMsContent';
-import { BreadCrumb } from '../flexMenor/BreadCrumb';
+import { BreadCrumb } from '../../BreadCrumb';
 import { useSolicitacoesPMs } from '../../../context/solicitacoesPMsContext/useSolicitacoesPMs';
 
 interface ISolicitacaoPMs {

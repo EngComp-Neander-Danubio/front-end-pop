@@ -1,5 +1,5 @@
 import { Box, Image } from '@chakra-ui/react';
-import imgCETIC from '../../../assets/img/Group-2.png';
+import imgCETIC from '../../../assets/img/cotic_logo.png';
 import React from 'react';
 interface IFooter {
   isOpen?: boolean;
@@ -30,6 +30,7 @@ export const FooterCetic: React.FC<IFooter> = ({ isOpen }) => {
         position="absolute"
         bottom={5}
         alignSelf="center"
+        backgroundColor="transparent"
         //border="1px solid red" // Para visualização, remova se não necessário
       />
     </Box>

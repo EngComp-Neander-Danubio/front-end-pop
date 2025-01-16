@@ -6,7 +6,7 @@ import {
   Flex,
   Text,
 } from '@chakra-ui/react';
-import { IconeFlexMCadastro } from './iconeFlexMenorCadastro';
+import { IconeFlexMCadastro } from './componentsCadastro/flexMenor/iconeFlexMenorCadastro';
 
 export const BreadCrumb = () => {
   return (

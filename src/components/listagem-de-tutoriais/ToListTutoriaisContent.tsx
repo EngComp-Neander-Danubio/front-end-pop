@@ -200,7 +200,7 @@ export const ToListTutoriaisContent: React.FC = () => {
                                   />
                                   <Flex>
 
-                                    <Menu closeOnBlur={true} closeOnSelect={false}> {/* Menu não fecha ao selecionar, apenas ao clicar fora */}
+                                    {/* <Menu closeOnBlur={true} closeOnSelect={false}>
                                       <MenuButton
                                         as={IconButton}
                                         aria-label="Options"
@@ -246,13 +246,12 @@ export const ToListTutoriaisContent: React.FC = () => {
                                           </Checkbox>
                                         </MenuItem>
                                       </MenuList>
-                                    </Menu>
+                                    </Menu> */}
                                   </Flex>
-                                  <Flex align={'center'} justify={'center'} gap={1}>
+                                  {/* <Flex align={'center'} justify={'center'} gap={1}>
                                   <SelectPattern options={systems} w={'300px'} isDisabled={!checkboxData.includes('Sistemas')} />
-                                  </Flex>
+                                  </Flex> */}
                                   <Flex ml={'auto'} gap={2}>
-
                                     <InputPatternController fontSize={'14px'} w={'20vw'} placeholder='Buscar'>
                                         <IconeBusca aria-label={''} color={'#A0AEC0'} />
                                   </InputPatternController>

@@ -1,7 +1,7 @@
 import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 import { ToListEventsContent } from './ToListEventsContent';
-import { BreadCrumb } from '../flexMenor/BreadCrumb';
+import { BreadCrumb } from '../../BreadCrumb';
 
 interface IToListEventProps {
   isOpen: boolean;

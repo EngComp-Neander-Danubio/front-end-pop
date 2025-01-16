@@ -1,6 +1,6 @@
-import { Icon, IconButtonProps } from "@chakra-ui/react";
+import { Icon, IconProps } from "@chakra-ui/react";
 import { IoSearchSharp } from 'react-icons/io5';
-interface IProps extends IconButtonProps {
+interface IProps extends IconProps {
   title?: string;
 }
 export const IconeBusca: React.FC<IProps> = ({

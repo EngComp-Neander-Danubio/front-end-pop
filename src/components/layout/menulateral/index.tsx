@@ -133,15 +133,14 @@ export const MenuLateral: React.FC = () => {
                     [
                       () => navigate('/lista-de-treinamento'),
                     ],
-                    //() => navigate('/escalas'),
                   ]
             }
             nameLabelSecundarys={
               perfil.includes('cgo')
                 ? [
-                    ['Home'],
-                    ['Cadastrar Tutorial'],
-                    ['Todos os treinamentos'],
+                    null,
+                    null,
+                    null,
 
                   ]
                 : [

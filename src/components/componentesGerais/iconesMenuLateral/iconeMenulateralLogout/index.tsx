@@ -10,7 +10,7 @@ export const IconeLogOut = (props: { isOpen: any }) => {
       <Icon
         as={LuLogOut}
         //boxSize={"1.3vw"}
-        boxSize={'24px'}
+        boxSize={5}
         // onClick={() => navigate('/')}
         //_hover={{ cursor: 'pointer' }}
       ></Icon>

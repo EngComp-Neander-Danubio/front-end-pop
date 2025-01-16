@@ -1,7 +1,7 @@
 import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 import { SolicitacaoPostosContent } from './SolicitacaoPostosContent';
-import { BreadCrumb } from '../flexMenor/BreadCrumb';
+import { BreadCrumb } from '../../BreadCrumb';
 import { useSolicitacoesPostos } from '../../../context/solicitacoesPostosContext/useSolicitacoesPostos';
 
 interface ISolicitacaoPostos {
