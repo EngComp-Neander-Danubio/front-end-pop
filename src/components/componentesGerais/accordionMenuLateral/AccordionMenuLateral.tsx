@@ -49,6 +49,7 @@ export const AccordionMenuLateral: React.FC<IAccordionMenu> = props => {
                 props.handleClick?.[index]?.(); // Chama a função do item principal
               }
             }
+            props.handleToggle
           }}>
             <h2>
               <AccordionButton
@@ -60,7 +61,7 @@ export const AccordionMenuLateral: React.FC<IAccordionMenu> = props => {
                   borderRadius: '10px',
                 }}
               >
-                <Flex align="center" as="span" flex="1" fontSize="1em" justifyContent={'flex-start'}>
+                <Flex align="center" as="span" flex="1" fontSize="1em" >
                   {/* Ícone do array customIcons correspondente */}
                   {props.customIcons[index]}{' '}
                   <Text
@@ -70,13 +71,14 @@ export const AccordionMenuLateral: React.FC<IAccordionMenu> = props => {
                   >
                     {label}
                   </Text>
-                </Flex>{
+                  {
                   !props.nameLabelSecundarys[index] || !Array.isArray(props.nameLabelSecundarys[index]) ? (
                     <AccordionIcon display={'none'} />
                   ) : (
                     <AccordionIcon display={props.displayCustom} />
                   )
                 }
+                </Flex>
               </AccordionButton>
             </h2>
             {/* Verifica se existem subitens antes de renderizar o AccordionPanel */}
