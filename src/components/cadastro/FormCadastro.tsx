@@ -54,6 +54,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
 }) => {
   const { control, watch } = useFormContext();
   const [swicth, setSwicth] = useState(false);
+  const [swicthFile, setSwicthFile] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [keywords, setKeywords] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -82,6 +83,9 @@ export const FormCadastro: React.FC<IFormProps> = ({
   ]
   const handleSwicth = (e: any) => {
     setSwicth(!swicth);
+  };
+  const handleSwicthFile = (e: any) => {
+    setSwicthFile(!swicthFile);
   };
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -240,27 +244,52 @@ export const FormCadastro: React.FC<IFormProps> = ({
               //border={'1px solid red'}
               justifyContent={'space-between'}
               >
-                <Flex flexDirection={'column'}>
-                <Text color={'#A0AEC0'} flexWrap={'nowrap'} w={'160px'}>Upload de arquivo</Text>
-                <Controller
-                    name="file"
-                    control={control}
-                    render={({ field, fieldState: { error } }) => (
-                      <Flex flexDirection={'row'} gap={1} align={'center'} justify={'center'}>
-                        <SelectPattern options={optionsFiles} w={'400px'} fontFamily={'Roboto'} placeholder="Tipo de arquivo" {...field} />
+                <Flex flexDirection={'column'} gap={2}>
+                  <Flex flexDirection={'row'} gap={2} align={'center'}>
+                    <Text color={'#A0AEC0'} flexWrap={'nowrap'} w={'160px'}>Upload de arquivo</Text>
+                    <Controller
+                              name="referenceFile"
+                              control={control}
+                              render={({ field, fieldState: { error } }) => (
+                                <Switch
+                                id="reference"
+                                colorScheme={'green'}
+                                {...field}
+                                onChange={async e => {
+                                  field.onChange(e.target.checked);
+                                  handleSwicthFile(!field.value);
+                                }}
+                                isChecked={field.value ?? false}
+
+                                />
+                              )}
+                              />
+                  </Flex>
+                    {swicthFile && (
+
+                            <Controller
+                            name="file"
+                            control={control}
+                            render={({ field, fieldState: { error } }) => (
+                              <Flex flexDirection={'row'} gap={1} align={'center'} justify={'center'}>
+                        <SelectPattern options={optionsFiles} w={'300px'} fontFamily={'Roboto'} placeholder="Tipo de arquivo" {...field} />
                         <InputCSVpapparse
                           nameInput="fileInput"
                           handleClick={handleClick}
                           handleOnChange={handleOnChange}
                           isDisabled={typeof watch('file') !== 'string'}
-                        />
+                          />
                         {/* <Icon as={MdDelete} boxSize={5} color={'#A0AEC0'} /> */}
                       </Flex>
                     )}
-                  />
+                    />
+                  )}
+
                 </Flex>
                 <Flex>
+
                 </Flex>
+                  <Textarea w={'50%'} textFillColor={'#A0AEC0'} placeholder='' h={'15vh'} color={'#A0AEC0'}/>
               </Flex>
           </Flex>
           <Flex className="gradient-border" w={'100%'} mt={20}/>

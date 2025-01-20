@@ -1,4 +1,4 @@
-
+import moment from 'moment'; // Para manipulação de fuso horário
 import { Card, CardHeader, Divider, CardBody, CardFooter, Text, Flex, Button } from '@chakra-ui/react'
 interface ICards {
   title: string;
@@ -60,7 +60,7 @@ export const CardTutorial: React.FC<ICards> = ({
          </Flex>
 
         <Text color={'#666'} ml={'auto'}>
-        Criado em : {createdAt?.toISOString()}: OPM: {createdBy ? createdBy : `Não definida`}
+        Criado em : {new Date(moment(createdAt).utc().format('DD-MMM-YYYY HH:mm:ss')).toLocaleDateString('pt-BR')}: OPM: {createdBy ? createdBy : `Não definida`}
         </Text>
       </Flex>
     </CardBody>
@@ -72,12 +72,12 @@ export const CardTutorial: React.FC<ICards> = ({
       w={'100%'} fontSize={'12px'}
        gap={2}>
         <Flex>
-          Tipo de Treinamento: Vídeo/Documento/Link
+          Tipo de Treinamento:
         </Flex>
         <Flex color={'#A0AEC0'}>
           Palavras-chave: {keywords ? keywords?.map((item,index) => (
             <Text key={index}>
-              {item}
+              {" " + item}
             </Text>
           )): (
             <Text> Sem palavras-chave</Text>

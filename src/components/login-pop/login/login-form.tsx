@@ -18,7 +18,7 @@ export function LoginForm() {
     try {
       setIsLoading(true);
       await auth.authenticate(matricula, senha);
-      navigate('/criar-operacao');
+      navigate('/lista-de-treinamento');
     } catch (error) {
       toast({
         title: 'Erro ao fazer login',

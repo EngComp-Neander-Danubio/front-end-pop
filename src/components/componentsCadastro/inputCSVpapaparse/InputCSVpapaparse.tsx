@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FormEvent, useRef } from 'react';
 import { Button, Flex, Input, InputProps } from '@chakra-ui/react';
 import { CiSearch } from 'react-icons/ci';
+import { GoUpload } from 'react-icons/go';
 
 interface IInput extends InputProps {
   nameInput: string;
@@ -28,7 +29,7 @@ export const InputCSVpapparse: React.FC<IInput> = ({
       />
       <Input
         as={Button}
-        rightIcon={<CiSearch size={24} />}
+        rightIcon={<GoUpload size={24} />}
         placeholder={'Your file ...'}
         onClick={() => inputRef.current?.click()}
         value={inputRef.current?.value}

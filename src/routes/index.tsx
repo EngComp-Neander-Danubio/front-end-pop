@@ -5,7 +5,7 @@ import { PageModulos } from '../views/page-modulos';
 import { PageTutoriais } from '../views/page-lista-de-tutoriais';
 import { PageVideosTutoriais } from '../views/page-lista-de-videos-tutoriais';
 import { PageCadastro } from '../views/page-cadastro';
-import { LoginPop } from '../views/page-login-sgo/LoginPop';
+import { LoginPop } from '../views/page-login-pop/LoginPop';
 
 export const Rotas = () => {
   return (
