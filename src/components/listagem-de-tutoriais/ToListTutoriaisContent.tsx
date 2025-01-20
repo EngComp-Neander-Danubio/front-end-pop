@@ -30,6 +30,15 @@ type CadastroForm = {
     system?: string;
     assunto?: string;
     descriptionAdd?: string;
+    pdfFilePath?: File,
+    createdBy?: string,
+    sectorContactName?: string,
+    sectorContactEmail?: string,
+    sectorContactPhone?: string,
+    keywords?: string[];
+    createdAt?: Date;
+    updatedAt?: Date;
+    deletedAt?: Date;
 
 }
 type OptionType = { label: string; value: string  }[];
@@ -46,29 +55,24 @@ export const ToListTutoriaisContent: React.FC = () => {
   const { onOpen, onClose, isOpen } = useDisclosure()
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
-
   const [tutorial, setTutorial] = useState<CadastroForm[]>([]);
   const [currentDataIndex, setCurrentDataIndex] = useState(0);
-  const [dataPerPage] = useState(8);
-  const lastDataIndex = (currentDataIndex + 1) * dataPerPage;
-  const firstDataIndex = lastDataIndex - dataPerPage;
+  const [datePerpage, setDatePerpage] = useState<number>(1);
+
+  const handlePerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setDatePerpage(parseInt(e.target.value));
+  };
+  const lastDataIndex = (currentDataIndex + 1) * datePerpage;
+  const firstDataIndex = lastDataIndex - datePerpage;
   const totalData = tutorial.length;
   const currentData = tutorial.slice(firstDataIndex, lastDataIndex);
   const hasMore = lastDataIndex < tutorial.length;
   const [systems, setSystems] = useState<OptionType[]>([]);
-  const [checkboxData, setCheckboxData] = useState<string[]>([]); // Estado para armazenar os dados dos checkboxes
 
-  // Função para alterar o estado dos checkboxes
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>, label: string) => {
-    if (e.target.checked) {
-      setCheckboxData((prev) => [...prev, label]); // Adiciona ao array se marcado
-    } else {
-      setCheckboxData((prev) => prev.filter(item => item !== label)); // Remove do array se desmarcado
-    }
-  };
+
   const loadSystemsFromBackend = useCallback(async () => {
     try {
-      const response = await api.get<ISystem[]>('/listar-sistemas');
+      const response = await api.get<ISystem[]>('/references');
       const formattedSystems = response.data.map((system: ISystem) => ({
         label: system.sis_sigla,
         value: system.sis_codigo,
@@ -84,7 +88,7 @@ export const ToListTutoriaisContent: React.FC = () => {
   }, []);
   const loadTutorialFromToBackend = async () => {
     try {
-      const response = await api.get<CadastroForm[]>(`/listar-postos`);
+      const response = await api.get<CadastroForm[]>(`/pops`);
       setTutorial(response.data);
 
       } catch (err) {
@@ -329,32 +333,48 @@ export const ToListTutoriaisContent: React.FC = () => {
         <TabIndicator mt='-1.5px' height='2px' bg='#276749' borderRadius='1px' />
         <TabPanels >
           <TabPanel>
-            <Flex gap={4} flexDirection={'column'} w={'100%'}>
-            <CardTutorial title={'AVALIAÇÃO DE NEO-SOLDADOS'} body={''} />
-              <CardTutorial title={'Esqueci a senha do meu SAPM'} body={''} />
-
+            <Flex gap={4} flexDirection={'column'} w={'100%'} h={'40vh'} overflowY={'auto'}>
+              {currentData.map((item, index)=> (
+                <>
+                  <CardTutorial title={item.title} body={item.description} key={index} createdAt={new Date(item?.createdAt)} createdBy={''} />
+                </>
+              ))
+              }
             </Flex>
           </TabPanel>
           <TabPanel>
-          <Flex gap={4} flexDirection={'column'}>
-            <CardTutorial title={'Esqueci a senha do meu SAPM'} body={''} />
-              <CardTutorial title={'AVALIAÇÃO DE NEO-SOLDADOS'} body={''} />
+          <Flex gap={4} flexDirection={'column'} h={'40vh'} overflowY={'auto'}>
+          {currentData.map((item, index)=> (
+                <>
+                  <CardTutorial title={item.title} body={item.description} createdAt={new Date(item?.createdAt)} key={index} />
+                </>
+              ))
+              }
               </Flex>
           </TabPanel>
           <TabPanel>
-          <Flex gap={4} flexDirection={'column'}>
-            <CardTutorial title={'Esqueci a senha do meu SAPM'} body={''} />
+          <Flex gap={4} flexDirection={'column'} h={'40vh'} overflowY={'auto'}>
+          {currentData.map((item, index)=> (
+                <>
+                  <CardTutorial title={item.title} body={item.description} key={index} createdAt={new Date(item?.createdAt)} createdBy={''} />
+                </>
+              ))
+              }
               </Flex>
           </TabPanel>
           <TabPanel>
-          <Flex gap={4} flexDirection={'column'}>
-            <CardTutorial title={'Esqueci a senha do meu SAPM'} body={''} />
-              <CardTutorial title={'AVALIAÇÃO DE NEO-SOLDADOS'} body={''} />
+          <Flex gap={4} flexDirection={'column'} h={'40vh'} overflowY={'auto'}>
+          {currentData.map((item, index)=> (
+                <>
+                  <CardTutorial title={item.title} body={item.description} key={index} createdAt={new Date(item?.createdAt)} createdBy={''} />
+                </>
+              ))
+              }
               </Flex>
           </TabPanel>
         </TabPanels>
       </Tabs>
-        <Pagination pl={4} pr={4} w={'100%'} firstDataIndex={0} lastDataIndex={0} totalPages={0} dataPerPage={0} loadLess={loadLess} loadMore={loadMore} />
+        <Pagination pl={4} pr={4} w={'100%'} firstDataIndex={firstDataIndex} lastDataIndex={lastDataIndex} totalPages={totalData} dataPerPage={datePerpage} loadLess={loadLess} loadMore={loadMore} handlePerPageChange={handlePerPageChange} />
         </Flex>
       </Flex>
       </Flex>

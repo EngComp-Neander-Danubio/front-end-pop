@@ -3,9 +3,22 @@ import { Card, CardHeader, Divider, CardBody, CardFooter, Text, Flex, Button } f
 interface ICards {
   title: string;
   body: string;
+  reference?: string;
+    system?: string;
+    assunto?: string;
+    descriptionAdd?: string;
+    pdfFilePath?: File,
+    createdBy?: string,
+    sectorContactName?: string,
+    sectorContactEmail?: string,
+    sectorContactPhone?: string,
+    keywords?: string[];
+    createdAt?: Date;
+    updatedAt?: Date;
+    deletedAt?: Date;
 }
 export const CardTutorial: React.FC<ICards> = ({
-  title}) => {
+  title, createdAt, createdBy, keywords,descriptionAdd ,body}) => {
   return (
     <>
     {/* 439DEE 1E78E9 */}
@@ -43,11 +56,11 @@ export const CardTutorial: React.FC<ICards> = ({
     >
       {/* <Text >{body}</Text> */}
         <Flex color={'#A0AEC0'}>
-        Todo o processo de avaliação dos neo-soldados.Prazos,quesitos de avaliação etc.
-        </Flex>
+          {body}
+         </Flex>
 
         <Text color={'#666'} ml={'auto'}>
-        Criado em : 22/12/24: OPM: CETIC
+        Criado em : {createdAt?.toISOString()}: OPM: {createdBy ? createdBy : `Não definida`}
         </Text>
       </Flex>
     </CardBody>
@@ -62,7 +75,13 @@ export const CardTutorial: React.FC<ICards> = ({
           Tipo de Treinamento: Vídeo/Documento/Link
         </Flex>
         <Flex color={'#A0AEC0'}>
-          Palavras-chave: Avaliação/Neo-Soldados/Estágio-operacional
+          Palavras-chave: {keywords ? keywords?.map((item,index) => (
+            <Text key={index}>
+              {item}
+            </Text>
+          )): (
+            <Text> Sem palavras-chave</Text>
+          )}
         </Flex>
         <Button color={'#fff'} ml={'auto'} backgroundColor={'green'} fontSize={'12px'}>
           Clique aqui

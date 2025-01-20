@@ -1,4 +1,5 @@
 import { Flex, Button, Text, FlexProps, Select } from '@chakra-ui/react';
+import { useState } from 'react';
 
 interface IPagination extends FlexProps{
   firstDataIndex: number;
@@ -7,35 +8,45 @@ interface IPagination extends FlexProps{
   dataPerPage: number;
   loadLess: () => void;
   loadMore: () => void;
+  handlePerPageChange: (e: React.ChangeEvent<HTMLSelectElement>)=> void;
 }
-// all right, it's over here
+
 export const Pagination: React.FC<IPagination> = ({
   totalPages,
   loadLess,
   loadMore,
   firstDataIndex,
   lastDataIndex,
+  dataPerPage,
+  handlePerPageChange,
   ...props
 }) => {
+
+
   return (
     <Flex justify="space-between" mt={-9} align={'center'} {...props}>
       <Text fontSize={'14px'} color={'#666666'} fontWeight={'medium'}>
-
-      {totalPages ? Number(firstDataIndex) + 1 : 0} - {' '}
-      {totalPages < lastDataIndex ? totalPages : lastDataIndex} de {' '}
-      {totalPages} Itens
+        {totalPages ? Number(firstDataIndex) + 1 : 0} - {' '}
+        {totalPages < lastDataIndex ? totalPages : lastDataIndex} de {' '}
+        {totalPages} Itens
       </Text>
-      <Select placeholder='' w='60px' color='#A0AEC0'>
-        <option value='option1' defaultValue='option1'>1</option>
-        <option value='option2'>2</option>
-        <option value='option3'>3</option>
-        <option value='option4'>4</option>
-        <option value='option5'>5</option>
-        <option value='option6'>6</option>
-        <option value='option7'>7</option>
-        <option value='option8'>8</option>
-        <option value='option9'>9</option>
-        <option value='option10'>10</option>
+      <Select
+        placeholder=''
+        w='fit-content'
+        color='#A0AEC0'
+        onChange={handlePerPageChange}
+        value={dataPerPage.toString()}
+      >
+        <option value='1'>1</option>
+        <option value='2'>2</option>
+        <option value='3'>3</option>
+        <option value='4'>4</option>
+        <option value='5'>5</option>
+        <option value='6'>6</option>
+        <option value='7'>7</option>
+        <option value='8'>8</option>
+        <option value='9'>9</option>
+        <option value='10'>10</option>
       </Select>
       <Flex p={0} color="rgba(52, 64, 84, 1)">
         <Button

@@ -19,6 +19,8 @@ type CadastroForm = {
     system?: string;
     assunto?: string;
     descriptionAdd?: string;
+    category?: number;
+    keywords?: string[];
 
 }
 export const Cadastro: React.FC<IInterface> = ({

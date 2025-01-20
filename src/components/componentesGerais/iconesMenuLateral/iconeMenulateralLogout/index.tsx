@@ -1,7 +1,5 @@
 import { Icon, Flex, Text } from '@chakra-ui/react';
-import React from 'react';
 import { LuLogOut } from 'react-icons/lu';
-import { useNavigate } from 'react-router-dom';
 
 export const IconeLogOut = (props: { isOpen: any }) => {
   //const navigate = useNavigate();
