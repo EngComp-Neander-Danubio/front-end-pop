@@ -34,7 +34,7 @@ const methodsInput = useForm<CadastroForm>({
   const { reset } = methodsInput;
 
   const onSubmit = async (data: CadastroForm) => {
-    console.log(data);
+    //console.log(data);
     try {
       await api.post(`/pops`, data);
       toast({
@@ -45,6 +45,7 @@ const methodsInput = useForm<CadastroForm>({
         duration: 2000,
         isClosable: true,
       });
+      reset();
     } catch (error) {
       console.error('Falha:', error);
       toast({

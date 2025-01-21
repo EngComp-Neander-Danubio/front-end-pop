@@ -1,29 +1,21 @@
-import { Flex, FocusLock, Icon , IconButton, Popover, PopoverArrow, PopoverCloseButton, PopoverContent, PopoverTrigger, TabIndicator, Text, useDisclosure, useToast} from '@chakra-ui/react';
+import { Flex, Icon , TabIndicator, Text, useDisclosure, useToast} from '@chakra-ui/react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { CardTutorial } from '../componentesTutorial/CardTutorial';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { FaFileAlt } from 'react-icons/fa';
-import { FiFilter, FiVideo } from 'react-icons/fi';
+import { FiVideo } from 'react-icons/fi';
 import { MdOutlineAutoAwesomeMotion } from 'react-icons/md';
 import { Pagination } from '../componentsCadastro/pagination/Pagination';
 import  InputPatternController  from '../componentsCadastro/inputPatternController/InputPatternController';
-import { Controller, Form, useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { IconeBusca } from '../componentesGerais/iconesMenuLateral/iconeMenulateralBusca';
 import { DatePickerEvent } from '../componentsCadastro/formGrandeEvento/DatePickerEvent';
-import  SelectPattern from '../componentsCadastro/modal/SelectPattern';
-import { Checkbox, CheckboxGroup } from '@chakra-ui/react'
 import api from '../../services/api';
 import { RxText } from 'react-icons/rx';
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-} from '@chakra-ui/react'
-import { AddIcon, ExternalLinkIcon, RepeatIcon, EditIcon } from '@chakra-ui/icons';
+import { SearchIcon } from '@chakra-ui/icons';
 
 // lista as solicitacoes da OPM no que se refere ao posto de serviço
-type CadastroForm = {
+type PopProps = {
   title: string;
     description: string;
     reference?: string;
@@ -50,12 +42,13 @@ type ISystem = {
 }
 
 export const ToListTutoriaisContent: React.FC = () => {
-  const {control} = useForm();
+  const {control, watch, reset} = useForm();
   const toast = useToast();
   const { onOpen, onClose, isOpen } = useDisclosure()
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
-  const [tutorial, setTutorial] = useState<CadastroForm[]>([]);
+  const [tutorial, setTutorial] = useState<PopProps[]>([]);
+  const [searchPops, setsearchPops] = useState<PopProps[]>([]);
   const [currentDataIndex, setCurrentDataIndex] = useState(0);
   const [datePerpage, setDatePerpage] = useState<number>(1);
 
@@ -67,8 +60,10 @@ export const ToListTutoriaisContent: React.FC = () => {
   const totalData = tutorial.length;
   const currentData = tutorial.slice(firstDataIndex, lastDataIndex);
   const hasMore = lastDataIndex < tutorial.length;
+  const totalDataSearch = searchPops.length;
+  const currentDataSearch = searchPops.slice(firstDataIndex, lastDataIndex);
+  const hasMoreSearch = lastDataIndex < searchPops.length;
   const [systems, setSystems] = useState<OptionType[]>([]);
-
 
   const loadSystemsFromBackend = useCallback(async () => {
     try {
@@ -132,6 +127,43 @@ export const ToListTutoriaisContent: React.FC = () => {
       });
     }
   };
+
+  const inputUser = watch('searchPop');
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      searchPopsFromInput(inputUser);
+    }, 100);
+
+    return () => {
+      clearTimeout(handler);
+      //setsearchPops([])
+    };
+  }, [inputUser]);
+
+  const searchPopsFromInput = useCallback(
+    async (param?: string) => {
+      if (!param) {
+        setsearchPops([]);
+        return;
+      }
+      const lowercasedParam = param.toLowerCase();
+      const result: PopProps[] = tutorial.filter(tutorial => {
+        // Converte a data de criação para string e para minúsculas, se existirem
+        const diaAsString = tutorial.createdBy?.toString().toLowerCase();
+        return (
+          (diaAsString?.includes(lowercasedParam) ||
+            tutorial.assunto?.toLowerCase().includes(lowercasedParam)
+            || tutorial.description?.toLowerCase().includes(lowercasedParam)
+            || tutorial.descriptionAdd?.toLowerCase().includes(lowercasedParam)
+            || tutorial.reference?.toLowerCase().includes(lowercasedParam)
+        ));
+      });
+      setsearchPops(result);
+    },
+    [currentDataSearch], // Dependências para o `useCallback`
+  );
+
   return (
     <>
     <Flex flexDirection={'column'} w={'100%'} gap={10}
@@ -256,9 +288,26 @@ export const ToListTutoriaisContent: React.FC = () => {
                                   <SelectPattern options={systems} w={'300px'} isDisabled={!checkboxData.includes('Sistemas')} />
                                   </Flex> */}
                                   <Flex ml={'auto'} gap={2}>
-                                    <InputPatternController fontSize={'14px'} w={'20vw'} placeholder='Buscar'>
-                                        <IconeBusca aria-label={''} color={'#A0AEC0'} />
-                                  </InputPatternController>
+                                  <Controller
+                                        name="searchPop"
+                                        control={control}
+                                        render={({
+                                          field: { onChange, onBlur, value, ref },
+                                          fieldState: { error },
+                                        }) => (
+                                          <InputPatternController
+                                            fontSize={'14px'} w={'20vw'} placeholder='Buscar'
+                                            onChange={e => {
+                                              onChange(e.currentTarget.value);
+                                            }}
+                                            onBlur={onBlur}
+                                            value={value}
+                                            error={error}
+                                          >
+                                            <IconeBusca aria-label={''} color={'#A0AEC0'} />
+                                          </InputPatternController>
+                                        )}
+                                      />
                                   </Flex>
                                </Flex>
 
@@ -334,7 +383,7 @@ export const ToListTutoriaisContent: React.FC = () => {
         <TabPanels >
           <TabPanel>
             <Flex gap={4} flexDirection={'column'} w={'100%'} h={'40vh'} overflowY={'auto'}>
-              {currentData.map((item, index)=> (
+              {(searchPops.length > 0 ? currentDataSearch :  currentData).map((item, index)=> (
                 <>
                   <CardTutorial title={item.title} body={item.description} key={index} createdAt={new Date(item?.createdAt)} createdBy={''} />
                 </>
@@ -344,17 +393,7 @@ export const ToListTutoriaisContent: React.FC = () => {
           </TabPanel>
           <TabPanel>
           <Flex gap={4} flexDirection={'column'} h={'40vh'} overflowY={'auto'}>
-          {currentData.map((item, index)=> (
-                <>
-                  <CardTutorial title={item.title} body={item.description} createdAt={new Date(item?.createdAt)} key={index} />
-                </>
-              ))
-              }
-              </Flex>
-          </TabPanel>
-          <TabPanel>
-          <Flex gap={4} flexDirection={'column'} h={'40vh'} overflowY={'auto'}>
-          {currentData.map((item, index)=> (
+          {(searchPops.length > 0 ? currentDataSearch :  currentData).map((item, index)=> (
                 <>
                   <CardTutorial title={item.title} body={item.description} key={index} createdAt={new Date(item?.createdAt)} createdBy={''} />
                 </>
@@ -364,7 +403,17 @@ export const ToListTutoriaisContent: React.FC = () => {
           </TabPanel>
           <TabPanel>
           <Flex gap={4} flexDirection={'column'} h={'40vh'} overflowY={'auto'}>
-          {currentData.map((item, index)=> (
+          {(searchPops.length > 0 ? currentDataSearch :  currentData).map((item, index)=> (
+                <>
+                  <CardTutorial title={item.title} body={item.description} key={index} createdAt={new Date(item?.createdAt)} createdBy={''} />
+                </>
+              ))
+              }
+              </Flex>
+          </TabPanel>
+          <TabPanel>
+          <Flex gap={4} flexDirection={'column'} h={'40vh'} overflowY={'auto'}>
+          {(searchPops.length > 0 ? currentDataSearch :  currentData).map((item, index)=> (
                 <>
                   <CardTutorial title={item.title} body={item.description} key={index} createdAt={new Date(item?.createdAt)} createdBy={''} />
                 </>
@@ -374,7 +423,11 @@ export const ToListTutoriaisContent: React.FC = () => {
           </TabPanel>
         </TabPanels>
       </Tabs>
-        <Pagination pl={4} pr={4} w={'100%'} firstDataIndex={firstDataIndex} lastDataIndex={lastDataIndex} totalPages={totalData} dataPerPage={datePerpage} loadLess={loadLess} loadMore={loadMore} handlePerPageChange={handlePerPageChange} />
+        <Pagination pl={4} pr={4} w={'100%'}
+        firstDataIndex={firstDataIndex}
+        lastDataIndex={lastDataIndex}
+        totalPages={searchPops.length > 0 ? totalDataSearch : totalData}
+        dataPerPage={datePerpage} loadLess={loadLess} loadMore={loadMore} handlePerPageChange={handlePerPageChange} />
         </Flex>
       </Flex>
       </Flex>

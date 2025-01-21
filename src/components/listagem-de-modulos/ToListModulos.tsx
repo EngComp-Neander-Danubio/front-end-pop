@@ -1,13 +1,31 @@
 import { Flex, Text } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ToListModulosContent } from './ToListModulosContent';
-
+import api from '../../services/api';
+type CadastroForm = {
+  title: string;
+    description: string;
+    reference?: string;
+    system?: string;
+    assunto?: string;
+    descriptionAdd?: string;
+    pdfFilePath?: File,
+    createdBy?: string,
+    sectorContactName?: string,
+    sectorContactEmail?: string,
+    sectorContactPhone?: string,
+    keywords?: string[];
+    createdAt?: Date;
+    updatedAt?: Date;
+    deletedAt?: Date;
+}
 
 interface IInterface {
   isOpen: boolean;
   handleToggle: () => void;
 }
 export const ToListModulos: React.FC<IInterface> = () => {
+
   return (
     <Flex
       h={'100%'}

@@ -21,7 +21,8 @@ export const InputCSVpapparse: React.FC<IInput> = ({
     <Flex flexDirection={'row'} gap={2}>
       <input
         type="file"
-        accept="*/*"
+        accept=".txt,.mp4,.pdf"
+        multiple
         id={`${nameInput}`}
         onChange={async e => handleOnChange(e)}
         style={{ display: 'none' }}

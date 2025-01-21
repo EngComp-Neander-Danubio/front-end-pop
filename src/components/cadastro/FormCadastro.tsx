@@ -1,7 +1,7 @@
-import { Box, color, Divider, Flex, FlexboxProps, FormControl, Icon, Switch, Text, Tooltip } from "@chakra-ui/react"
+import { Box, Button, color, Divider, Flex, FlexboxProps, FormControl, Icon, Stack, Switch, Text, Tooltip } from "@chakra-ui/react"
 import  InputPatternController  from "../componentsCadastro/inputPatternController/InputPatternController";
 import { Controller, useFormContext } from "react-hook-form";
-import { useCallback, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import  SelectPattern  from "../componentsCadastro/modal/SelectPattern";
 import { Textarea } from '@chakra-ui/react';
 import { optionsSystems } from "../../types/typesSystems";
@@ -42,11 +42,11 @@ interface IFormProps extends FlexboxProps {
 }
 
 const optionsFiles: OptionType[] = [
-  { label: 'PDF', value: '1' },
-  { label: 'Docx', value: '2' },
-  { label: 'Txt', value: '3' },
-  { label: 'xls', value: '4' },
-  { label: 'pwt', value: '5' },
+  { label: '.pdf', value: '1' },
+  { label: '.docx', value: '2' },
+  { label: '.txt', value: '3' },
+  { label: '.xls', value: '4' },
+  { label: '.pwt', value: '5' },
 ];
 
 export const FormCadastro: React.FC<IFormProps> = ({
@@ -55,7 +55,12 @@ export const FormCadastro: React.FC<IFormProps> = ({
   const { control, watch } = useFormContext();
   const [swicth, setSwicth] = useState(false);
   const [swicthFile, setSwicthFile] = useState(false);
-  const [file, setFile] = useState<File | null>(null);
+  const [fileList, setFileList] = useState<FileList | null>(null);
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFileList(e.target.files);
+  };
+  const files = fileList ? [...fileList] : [];
   const [keywords, setKeywords] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [systems, setSystems] = useState<OptionType[]>([]);
@@ -88,11 +93,11 @@ export const FormCadastro: React.FC<IFormProps> = ({
     setSwicthFile(!swicthFile);
   };
 
-  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.[0]) {
-      setFile(e.target.files[0]);
-    }
-  };
+  // const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.files?.[0]) {
+  //     setFile(e.target.files[0]);
+  //   }
+  // };
 
   const handleClick = () => {
     document.getElementById('fileInput')?.click();
@@ -179,20 +184,19 @@ export const FormCadastro: React.FC<IFormProps> = ({
                           name="system"
                           control={control}
                           render={({ field, fieldState: { error } }) => (
-                            <SelectPattern options={systems} w={'300px'} isDisabled={watch('reference') ? false : true} {...field} />
+                            <SelectPattern options={optionsSystems} w={'300px'} isDisabled={watch('reference') ? false : true} {...field} />
                           )}
                           />
                       </Flex>
             </Flex>
 
     <Flex w={'100%'}>
-      <Controller
-        name="assunto"
-        control={control}
-        render={({ field, fieldState: { error } }) => (
+          <Controller
+            name="keywords"
+            control={control}
+            render={({ field, fieldState: { error } }) => (
           <Flex gap={2} align={'center'} justify={'center'}>
             <Flex flexDirection={'column'}>
-
             <InputPatternController
               type="text"
               w={'15vw'}
@@ -246,7 +250,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
               >
                 <Flex flexDirection={'column'} gap={2}>
                   <Flex flexDirection={'row'} gap={2} align={'center'}>
-                    <Text color={'#A0AEC0'} flexWrap={'nowrap'} w={'160px'}>Upload de arquivo</Text>
+                    <Text color={'#A0AEC0'} flexWrap={'nowrap'} w={'fit-content'}>Upload de arquivo</Text>
                     <Controller
                               name="referenceFile"
                               control={control}
@@ -266,19 +270,18 @@ export const FormCadastro: React.FC<IFormProps> = ({
                               />
                   </Flex>
                     {swicthFile && (
-
                             <Controller
                             name="file"
                             control={control}
                             render={({ field, fieldState: { error } }) => (
                               <Flex flexDirection={'row'} gap={1} align={'center'} justify={'center'}>
-                        <SelectPattern options={optionsFiles} w={'300px'} fontFamily={'Roboto'} placeholder="Tipo de arquivo" {...field} />
-                        <InputCSVpapparse
-                          nameInput="fileInput"
-                          handleClick={handleClick}
-                          handleOnChange={handleOnChange}
-                          isDisabled={typeof watch('file') !== 'string'}
-                          />
+                            <SelectPattern options={optionsFiles} w={'300px'} fontFamily={'Roboto'} {...field} />
+                            <InputCSVpapparse
+                              nameInput="fileInput"
+                              handleClick={handleClick}
+                              handleOnChange={handleFileChange}
+                              isDisabled={typeof watch('file') !== 'string'}
+                              />
                         {/* <Icon as={MdDelete} boxSize={5} color={'#A0AEC0'} /> */}
                       </Flex>
                     )}
@@ -289,7 +292,18 @@ export const FormCadastro: React.FC<IFormProps> = ({
                 <Flex>
 
                 </Flex>
-                  <Textarea w={'50%'} textFillColor={'#A0AEC0'} placeholder='' h={'15vh'} color={'#A0AEC0'}/>
+                {swicthFile && (
+                  <Textarea value={files?.map((item,index)=>(item.name))} w={'50%'} textFillColor={'#A0AEC0'} placeholder='' h={'15vh'} color={'#A0AEC0'}/>
+                )}
+                {/* {swicthFile && files.length > 0 && (
+                <Stack direction="row" wrap="wrap" spacing={4}>
+                  {files.map((item, index) => (
+                    <Button key={index} colorScheme="blue">
+                      {item.name}
+                    </Button>
+                  ))}
+                </Stack>
+                )} */}
               </Flex>
           </Flex>
           <Flex className="gradient-border" w={'100%'} mt={20}/>
