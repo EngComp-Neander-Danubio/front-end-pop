@@ -144,7 +144,7 @@ export const ToListTutoriaisContent: React.FC = () => {
   const searchPopsFromInput = useCallback(
     async (param?: string) => {
       if (!param) {
-        setsearchPops([]);
+        setsearchPops(tutorial);
         return;
       }
       const lowercasedParam = param.toLowerCase();
@@ -161,7 +161,7 @@ export const ToListTutoriaisContent: React.FC = () => {
       });
       setsearchPops(result);
     },
-    [currentDataSearch], // Dependências para o `useCallback`
+    [currentDataSearch, currentData], // Dependências para o `useCallback`
   );
 
   const handleFilterByDates = useCallback(
@@ -415,7 +415,7 @@ export const ToListTutoriaisContent: React.FC = () => {
         <TabPanels >
           <TabPanel>
             <Flex gap={4} flexDirection={'column'} w={'100%'} h={'40vh'} overflowY={'auto'}>
-              {(searchPops.length > 0 ? currentDataSearch :  currentData).map((item, index)=> (
+              {(searchPops ? currentDataSearch :  currentData).map((item, index)=> (
                 <>
                   <CardTutorial title={item.title} body={item.description} key={index} createdAt={new Date(item?.createdAt)} createdBy={''} />
                 </>
@@ -425,7 +425,7 @@ export const ToListTutoriaisContent: React.FC = () => {
           </TabPanel>
           <TabPanel>
           <Flex gap={4} flexDirection={'column'} h={'40vh'} overflowY={'auto'}>
-          {(searchPops.length > 0 ? currentDataSearch :  currentData).map((item, index)=> (
+          {(searchPops ? currentDataSearch :  currentData).map((item, index)=> (
                 <>
                   <CardTutorial title={item.title} body={item.description} key={index} createdAt={new Date(item?.createdAt)} createdBy={''} />
                 </>
@@ -435,7 +435,7 @@ export const ToListTutoriaisContent: React.FC = () => {
           </TabPanel>
           <TabPanel>
           <Flex gap={4} flexDirection={'column'} h={'40vh'} overflowY={'auto'}>
-          {(searchPops.length > 0 ? currentDataSearch :  currentData).map((item, index)=> (
+          {(searchPops ? currentDataSearch :  currentData).map((item, index)=> (
                 <>
                   <CardTutorial title={item.title} body={item.description} key={index} createdAt={new Date(item?.createdAt)} createdBy={''} />
                 </>
@@ -445,7 +445,7 @@ export const ToListTutoriaisContent: React.FC = () => {
           </TabPanel>
           <TabPanel>
           <Flex gap={4} flexDirection={'column'} h={'40vh'} overflowY={'auto'}>
-          {(searchPops.length > 0 ? currentDataSearch :  currentData).map((item, index)=> (
+          {(searchPops ? currentDataSearch :  currentData).map((item, index)=> (
                 <>
                   <CardTutorial title={item.title} body={item.description} key={index} createdAt={new Date(item?.createdAt)} createdBy={''} />
                 </>
@@ -458,7 +458,7 @@ export const ToListTutoriaisContent: React.FC = () => {
         <Pagination pl={4} pr={4} w={'100%'}
         firstDataIndex={firstDataIndex}
         lastDataIndex={lastDataIndex}
-        totalPages={searchPops.length > 0 ? totalDataSearch : totalData}
+        totalPages={searchPops ? totalDataSearch : totalData}
         dataPerPage={datePerpage} loadLess={loadLess} loadMore={loadMore} handlePerPageChange={handlePerPageChange} />
         </Flex>
       </Flex>

@@ -6,10 +6,14 @@ import  SelectPattern  from "../componentsCadastro/modal/SelectPattern";
 import { Textarea } from '@chakra-ui/react';
 import { optionsSystems } from "../../types/typesSystems";
 import { InputCSVpapparse } from "../componentsCadastro/inputCSVpapaparse/InputCSVpapaparse";
-import { FaPlusCircle } from "react-icons/fa";
+import { FaCircle, FaFileAlt, FaPlusCircle, FaVideo } from "react-icons/fa";
 import { OptionType } from "../../types/typesPostos";
 import api from "../../services/api";
-
+import { FiVideo } from 'react-icons/fi';
+import { BiDockBottom } from "react-icons/bi";
+import { RxText } from "react-icons/rx";
+import { TbCircleLetterXFilled } from "react-icons/tb";
+import { MdOutlineCancel } from "react-icons/md";
 type ISystem = {
   sis_sigla: string;
   sis_codigo: string;
@@ -42,13 +46,8 @@ interface IFormProps extends FlexboxProps {
 }
 
 const optionsFiles: OptionType[] = [
-  { label: '.pdf', value: '.pdf' },
-  { label: '.docx', value: '.docx' },
-  { label: '.txt', value: '.txt' },
-  { label: '.xls', value: '.xls' },
-  { label: '.pwt', value: '.pwt' },
-  { label: '.csv', value: '.csv' },
-  { label: '.mp4', value: '.mp4' },
+  { label: 'Documento PDF', value: '.pdf' },
+  { label: 'Vídeo', value: '*' },
 ];
 
 export const FormCadastro: React.FC<IFormProps> = ({
@@ -66,7 +65,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
   const [keywords, setKeywords] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [systems, setSystems] = useState<OptionType[]>([]);
-
+  const typeDataFile: string = watch('file');
    // Função para adicionar uma palavra ao estado
    const addKeyword = (keyword: string) => {
     // Verifica se a palavra-chave não está vazia
@@ -274,49 +273,75 @@ export const FormCadastro: React.FC<IFormProps> = ({
                               />
                   </Flex>
                     {swicthFile && (
-                            <Controller
-                            name="file"
-                            control={control}
-                            render={({ field, fieldState: { error } }) => (
-                              <Flex flexDirection={'row'} gap={1} align={'center'} justify={'center'}>
+                      <Flex flexDirection={'row'} gap={1} align={'center'} justify={'center'}>
 
-                            <SelectPattern options={optionsFiles} w={'300px'} fontFamily={'Roboto'} {...field} />
+                              <Controller
+                                  name="file"
+                                  control={control}
+                                  render={({ field, fieldState: { error } }) => (
+                                  <SelectPattern options={optionsFiles} w={'300px'} fontFamily={'Roboto'} {...field} />
+                                )} />
 
+                                <Controller
+                                  name="fileList"
+                                  control={control}
+                                  render={({ field, fieldState: { error } }) => (
+                                      <InputCSVpapparse
+                                        nameInput="fileInput"
+                                        handleClick={handleClick}
+                                        handleOnChange={handleFileChange}
+                                        isDisabled={typeof watch('file') !== 'string'}
+                                        typeFile={typeDataFile?.includes('.pdf') ? '.pdf' : ',.mkv,.mp4'}
+                                  />
+                                )}
+                                />
 
-                            <InputCSVpapparse
-                              nameInput="fileInput"
-                              handleClick={handleClick}
-                              handleOnChange={handleFileChange}
-                              isDisabled={typeof watch('file') !== 'string'}
-                              typeFile={watch('file')}
-                              />
-                        {/* <Icon as={MdDelete} boxSize={5} color={'#A0AEC0'} /> */}
                       </Flex>
                     )}
-                    />
-                  )}
-
                 </Flex>
                 <Flex>
 
                 </Flex>
-                {swicthFile && (
+                {/* {swicthFile && (
                   <Controller
                   name="files"
                   control={control}
                   render={({ field, fieldState: { error } }) => (
                   <Textarea value={files?.map((item,index)=>(item.name))} w={'50%'} textFillColor={'#A0AEC0'} placeholder='' h={'15vh'} color={'#A0AEC0'}/>
                   )} />
-                )}
-                {/* {swicthFile && files.length > 0 && (
-                <Stack direction="row" wrap="wrap" spacing={4}>
+                )} */}
+                {swicthFile && files.length > 0 && (
+                <Stack direction="row" wrap="wrap" spacing={4} border={'1px solid #E2E8F0'} borderRadius={'6px'} align={'center'} justify={'center'} w={'100%'}>
                   {files.map((item, index) => (
-                    <Button key={index} colorScheme="blue">
-                      {item.name}
-                    </Button>
+                    <>
+                    <Button
+                    leftIcon={
+                      item.name.includes('.pdf') ? (
+                        <Flex gap={2}>
+                        <FaCircle color="#3182CE" textRendering={index}/>
+                        <FaFileAlt color="#3182CE" />
+                        </Flex>
+                      ) : item.name.includes('*') ? (
+                        <Flex gap={2}>
+                        <FaCircle color="#3182CE" textRendering={index}/>
+                        <FaVideo color="#3182CE" />
+                        </Flex>
+                      ) : (
+                        <RxText color="#3182CE" />
+                      )
+                    }
+                    rightIcon={<MdOutlineCancel  color="#3182CE"/>}
+                    variant="outline"
+                    key={index}
+                    size="sm"
+                    fontWeight="light"
+                    >
+                    {item.name.toLowerCase()}
+                  </Button>
+                    </>
                   ))}
                 </Stack>
-                )} */}
+                )}
               </Flex>
           </Flex>
           <Flex className="gradient-border" w={'100%'} mt={20}/>
