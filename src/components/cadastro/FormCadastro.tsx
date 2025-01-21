@@ -48,6 +48,7 @@ const optionsFiles: OptionType[] = [
   { label: '.xls', value: '.xls' },
   { label: '.pwt', value: '.pwt' },
   { label: '.csv', value: '.csv' },
+  { label: '.mp4', value: '.mp4' },
 ];
 
 export const FormCadastro: React.FC<IFormProps> = ({
@@ -100,12 +101,6 @@ export const FormCadastro: React.FC<IFormProps> = ({
   const handleSwicthFile = (e: any) => {
     setSwicthFile(!swicthFile);
   };
-
-  // const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (e.target.files?.[0]) {
-  //     setFile(e.target.files[0]);
-  //   }
-  // };
 
   const handleClick = () => {
     document.getElementById('fileInput')?.click();
@@ -165,7 +160,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
                       )}
                       />
                     </Flex>
-                    <Flex gap={2} w={'100%'} align={'center'} justify={'center'} >
+                    <Flex w={'100%'} align={'center'} justify={'center'} >
                         <Text color={'#A0AEC0'} flexWrap={'nowrap'} w={'220px'}>Possui Sistema de referência</Text>
                         <Controller
                           name="reference"
