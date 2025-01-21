@@ -42,11 +42,12 @@ interface IFormProps extends FlexboxProps {
 }
 
 const optionsFiles: OptionType[] = [
-  { label: '.pdf', value: '1' },
-  { label: '.docx', value: '2' },
-  { label: '.txt', value: '3' },
-  { label: '.xls', value: '4' },
-  { label: '.pwt', value: '5' },
+  { label: '.pdf', value: '.pdf' },
+  { label: '.docx', value: '.docx' },
+  { label: '.txt', value: '.txt' },
+  { label: '.xls', value: '.xls' },
+  { label: '.pwt', value: '.pwt' },
+  { label: '.csv', value: '.csv' },
 ];
 
 export const FormCadastro: React.FC<IFormProps> = ({
@@ -283,12 +284,16 @@ export const FormCadastro: React.FC<IFormProps> = ({
                             control={control}
                             render={({ field, fieldState: { error } }) => (
                               <Flex flexDirection={'row'} gap={1} align={'center'} justify={'center'}>
+
                             <SelectPattern options={optionsFiles} w={'300px'} fontFamily={'Roboto'} {...field} />
+
+
                             <InputCSVpapparse
                               nameInput="fileInput"
                               handleClick={handleClick}
                               handleOnChange={handleFileChange}
                               isDisabled={typeof watch('file') !== 'string'}
+                              typeFile={watch('file')}
                               />
                         {/* <Icon as={MdDelete} boxSize={5} color={'#A0AEC0'} /> */}
                       </Flex>

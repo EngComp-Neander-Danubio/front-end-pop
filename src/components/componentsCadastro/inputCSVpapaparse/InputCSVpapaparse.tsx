@@ -8,12 +8,14 @@ interface IInput extends InputProps {
   handleClick: () => void;
   handleOnChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleOnSubmit?: (e: FormEvent) => void;
+  typeFile?: string;
 }
 export const InputCSVpapparse: React.FC<IInput> = ({
   //handleClick,
   handleOnChange,
   //handleOnSubmit,
   nameInput,
+  typeFile,
 }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -21,7 +23,7 @@ export const InputCSVpapparse: React.FC<IInput> = ({
     <Flex flexDirection={'row'} gap={2}>
       <input
         type="file"
-        accept=".txt,.mp4,.pdf"
+        accept={`${typeFile}`}
         multiple
         id={`${nameInput}`}
         onChange={async e => handleOnChange(e)}
