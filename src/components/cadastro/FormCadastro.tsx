@@ -64,15 +64,22 @@ export const FormCadastro: React.FC<IFormProps> = ({
   const [keywords, setKeywords] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [systems, setSystems] = useState<OptionType[]>([]);
+
    // Função para adicionar uma palavra ao estado
    const addKeyword = (keyword: string) => {
-    if (keywords.length < 5) {
-      setKeywords((prevKeywords) => [...prevKeywords, keyword]);
-      setErrorMessage(null); // Limpa a mensagem de erro se a quantidade for válida
-    } else {
-      setErrorMessage('Capacidade de palavras-chave excedida. Limite é 5.');
+    // Verifica se a palavra-chave não está vazia
+    if (keyword.trim().length === 0) {
+      setErrorMessage('Campo vazio');
+      return;
     }
+    if (keywords.length >= 5) {
+      setErrorMessage('Capacidade de palavras-chave excedida. Limite é 5.');
+      return;
+    }
+    setKeywords((prevKeywords) => [...prevKeywords, keyword]);
+    setErrorMessage(null); // Limpa a mensagem de erro
   };
+
   const removeKeyword = (index: number) => {
     const updateKeywords = keywords.filter((_,i) => i !== index )
     setKeywords(updateKeywords)
@@ -119,6 +126,7 @@ export const FormCadastro: React.FC<IFormProps> = ({
   useEffect(() => {
     loadSystemsFromBackend();
   }, [loadSystemsFromBackend]);
+
   return (
     <FormControl
       //border={'1px solid green'}
@@ -293,7 +301,12 @@ export const FormCadastro: React.FC<IFormProps> = ({
 
                 </Flex>
                 {swicthFile && (
+                  <Controller
+                  name="files"
+                  control={control}
+                  render={({ field, fieldState: { error } }) => (
                   <Textarea value={files?.map((item,index)=>(item.name))} w={'50%'} textFillColor={'#A0AEC0'} placeholder='' h={'15vh'} color={'#A0AEC0'}/>
+                  )} />
                 )}
                 {/* {swicthFile && files.length > 0 && (
                 <Stack direction="row" wrap="wrap" spacing={4}>

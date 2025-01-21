@@ -164,6 +164,38 @@ export const ToListTutoriaisContent: React.FC = () => {
     [currentDataSearch], // Dependências para o `useCallback`
   );
 
+  const handleFilterByDates = useCallback(
+    async () => {
+      if (!startDate && !endDate) {
+        setsearchPops([]); // Limpa os resultados se não houver datas selecionadas
+        return;
+      }
+
+      const result: PopProps[] = tutorial.filter(tutorial => {
+        // Verifica se a data de criação está no formato correto
+        const createdAt = new Date(tutorial.createdAt);
+        if (isNaN(createdAt.getTime())) {
+          return false; // Ignora tutorial com data inválida
+        }
+
+        const matchesDates =
+          (!startDate || createdAt >= startDate) &&
+          (!endDate || createdAt <= endDate);
+
+        return matchesDates; // Filtra por data
+      });
+
+      setsearchPops(result); // Atualiza os resultados filtrados por data
+      //setTutorial(result);
+    },
+    [startDate, endDate, tutorial]
+  );
+
+  useEffect(() => {
+    handleFilterByDates();
+  }, [startDate, endDate]);
+
+
   return (
     <>
     <Flex flexDirection={'column'} w={'100%'} gap={10}
