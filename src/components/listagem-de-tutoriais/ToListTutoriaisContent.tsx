@@ -1,4 +1,4 @@
-import { Flex, Icon , TabIndicator, Text, useDisclosure, useToast} from '@chakra-ui/react';
+import { Flex, Icon , TabIndicator, Text, Tooltip, useDisclosure, useToast} from '@chakra-ui/react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { CardTutorial } from '../componentesTutorial/CardTutorial';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
@@ -13,6 +13,7 @@ import { DatePickerEvent } from '../componentsCadastro/formGrandeEvento/DatePick
 import api from '../../services/api';
 import { RxText } from 'react-icons/rx';
 import { SearchIcon } from '@chakra-ui/icons';
+import { IconeFiltro } from '../componentesGerais/iconeDashHeader/iconeFiltro';
 
 // lista as solicitacoes da OPM no que se refere ao posto de serviço
 type PopProps = {
@@ -22,6 +23,7 @@ type PopProps = {
     system?: string;
     assunto?: string;
     descriptionAdd?: string;
+    searchPop?: string;
     pdfFilePath?: File,
     createdBy?: string,
     sectorContactName?: string,
@@ -79,7 +81,7 @@ export const ToListTutoriaisContent: React.FC = () => {
 
   useEffect(() => {
     loadSystemsFromBackend();
-  }, []);
+  }, [loadSystemsFromBackend]);
   const loadTutorialFromToBackend = async () => {
     try {
       const response = await api.get<CadastroForm[]>(`/pops`);
@@ -95,7 +97,7 @@ export const ToListTutoriaisContent: React.FC = () => {
     };
   useEffect(()=>{
     loadTutorialFromToBackend()
-  },[])
+  },[loadTutorialFromToBackend])
 
   const loadMore = () => {
     if (hasMore) {
@@ -315,9 +317,14 @@ export const ToListTutoriaisContent: React.FC = () => {
                                       </MenuList>
                                     </Menu> */}
                                   </Flex>
-                                  {/* <Flex align={'center'} justify={'center'} gap={1}>
-                                  <SelectPattern options={systems} w={'300px'} isDisabled={!checkboxData.includes('Sistemas')} />
-                                  </Flex> */}
+                                  <Flex align={'center'} justify={'center'} gap={1}>
+                                  {/* <SelectPattern options={systems} w={'300px'} isDisabled={!checkboxData.includes('Sistemas')} /> */}
+                                    <Tooltip label={'Limpar filtros'}>
+                                  <span>
+                                  <IconeFiltro color={'#A0AEC0'} onClick={reset}/>
+                                  </span>
+                                    </Tooltip>
+                                  </Flex>
                                   <Flex ml={'auto'} gap={2}>
                                   <Controller
                                         name="searchPop"

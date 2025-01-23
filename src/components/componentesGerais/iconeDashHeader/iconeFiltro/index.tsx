@@ -5,7 +5,7 @@ import { FiFilter } from 'react-icons/fi';
 export const IconeFiltro = (props) => {
     return (
         <Flex>
-            <FiFilter color='#A0AEC0' size={'20px'} />
+            <FiFilter color='#A0AEC0' size={'20px'} onClick={props.onClick} {...props} />
         </Flex>
     )
 }
