@@ -14,6 +14,7 @@ import { BiDockBottom } from "react-icons/bi";
 import { RxText } from "react-icons/rx";
 import { TbCircleLetterXFilled } from "react-icons/tb";
 import { MdOutlineCancel } from "react-icons/md";
+import { CardFile } from "../componentsCadastro/cardFile/CardFile";
 type ISystem = {
   sis_sigla: string;
   sis_codigo: string;
@@ -281,20 +282,22 @@ export const FormCadastro: React.FC<IFormProps> = ({
                                   render={({ field, fieldState: { error } }) => (
                                   <SelectPattern options={optionsFiles} w={'300px'} fontFamily={'Roboto'} {...field} />
                                 )} />
+                              {watch('file') && (
 
                                 <Controller
-                                  name="fileList"
-                                  control={control}
-                                  render={({ field, fieldState: { error } }) => (
-                                      <InputCSVpapparse
-                                        nameInput="fileInput"
-                                        handleClick={handleClick}
-                                        handleOnChange={handleFileChange}
-                                        isDisabled={typeof watch('file') !== 'string'}
-                                        typeFile={typeDataFile?.includes('.pdf') ? '.pdf' : ',.mkv,.mp4'}
+                                name="fileList"
+                                control={control}
+                                render={({ field, fieldState: { error } }) => (
+                                  <InputCSVpapparse
+                                  nameInput="fileInput"
+                                  handleClick={handleClick}
+                                  handleOnChange={handleFileChange}
+                                  isDisabled={typeof watch('file') !== 'string'}
+                                  typeFile={typeDataFile?.includes('.pdf') ? '.pdf' : ',.mkv,.mp4'}
                                   />
                                 )}
                                 />
+                              )}
 
                       </Flex>
                     )}

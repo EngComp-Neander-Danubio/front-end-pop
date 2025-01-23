@@ -62,7 +62,6 @@ export const ToListTutoriaisContent: React.FC = () => {
   const hasMore = lastDataIndex < tutorial.length;
   const totalDataSearch = searchPops.length;
   const currentDataSearch = searchPops.slice(firstDataIndex, lastDataIndex);
-  const hasMoreSearch = lastDataIndex < searchPops.length;
   const [systems, setSystems] = useState<OptionType[]>([]);
 
   const loadSystemsFromBackend = useCallback(async () => {
